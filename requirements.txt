@@ -1,0 +1,3 @@
+opencv-python>=4.8
+pyyaml>=6.0
+python-snap7>=3.0

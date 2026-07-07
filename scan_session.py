@@ -2,17 +2,17 @@
 scan_session.py — Manual dual-camera bench scan session.
 
 Standalone tool, separate from the production pipeline (main.py / camera_stream.py /
-trigger_handler.py are untouched). Shows both camera feeds live side by side; SPACEBAR
-captures the current frame from both cameras as one board, saved via storage.save_frame()
+trigger_handler.py are untouched). Shows monitor camera feed live; press 'C' key
+captures the current frame from capture camera as the next board, saved via storage.save_frame()
 so the file format matches production exactly.
 
 Usage:
-  python scan_session.py --cam1 "rtsp://root:pass@169.254.9.152/live1s1.sdp" \
-                          --cam2 "rtsp://root:pass@169.254.9.172/live1s1.sdp"
+  python scan_session.py --cam-monitor "rtsp://root:pass@169.254.9.172/live1s1.sdp" \
+                          --cam-capture "rtsp://root:pass@169.254.9.152/live1s1.sdp"
 
 Controls:
-  SPACEBAR - capture current frame from both cameras as the next board
-  Q / ESC  - quit, prints total boards captured
+  C key - capture current frame from capture camera as the next board
+  Q / ESC - quit, prints total boards captured
 """
 
 import argparse
@@ -93,7 +93,7 @@ class CameraReader:
         logger.info("[%s] reader stopped", self.name)
 
 
-def make_thumb(frame, label: str, connected: bool, target_h: int = 540):
+def make_thumb(frame, label: str, connected: bool, target_h: int = 540, board_num: int = 0, captured_count: int = 0):
     h, w = frame.shape[:2] if frame is not None else (target_h, int(target_h * 16 / 9))
     scale = target_h / h
     target_w = int(w * scale)
@@ -109,15 +109,20 @@ def make_thumb(frame, label: str, connected: bool, target_h: int = 540):
     color = (0, 200, 0) if connected else (0, 0, 255)
     cv2.putText(thumb, f"{label} [{status}]", (10, 30), cv2.FONT_HERSHEY_SIMPLEX,
                 0.8, color, 2)
+
+    cv2.putText(thumb, f"Boards captured: {captured_count}  (next: board_{board_num:04d})",
+                (10, thumb.shape[0] - 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 0), 2)
+    cv2.putText(thumb, "Press C to capture  Q to quit",
+                (10, thumb.shape[0] - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (200, 200, 200), 1)
     return thumb
 
 
 def main():
     parser = argparse.ArgumentParser(description="Dual-camera manual bench scan session")
-    parser.add_argument("--cam1", required=True, help="RTSP URL for camera 1 (e.g. left end)")
-    parser.add_argument("--cam2", required=True, help="RTSP URL for camera 2 (e.g. right end)")
-    parser.add_argument("--cam1-name", default="cam1")
-    parser.add_argument("--cam2-name", default="cam2")
+    parser.add_argument("--cam-monitor", required=True, help="RTSP URL for monitor camera (e.g. left, shows position)")
+    parser.add_argument("--cam-capture", required=True, help="RTSP URL for capture camera (e.g. right, snapped on SPACEBAR)")
+    parser.add_argument("--monitor-name", default="monitor")
+    parser.add_argument("--capture-name", default="capture")
     parser.add_argument("--base-path", default="./captures")
     parser.add_argument("--jpg-quality", type=int, default=95)
     parser.add_argument("--start-num", type=int, default=1, help="First board number this session")
@@ -126,66 +131,78 @@ def main():
     session_date = datetime.now().strftime("%Y-%m-%d")
     base_path = str(Path(args.base_path) / f"bench_scan_{session_date}")
 
-    cam1 = CameraReader(args.cam1_name, args.cam1).start()
-    cam2 = CameraReader(args.cam2_name, args.cam2).start()
+    monitor = CameraReader(args.monitor_name, args.cam_monitor).start()
+    capture = CameraReader(args.capture_name, args.cam_capture).start()
 
     board_num = args.start_num
     captured_count = 0
 
-    window = "Bench Scan — SPACE=capture  Q=quit"
+    window = "Bench Scan — CLICK or Press C to capture  Q to quit"
     cv2.namedWindow(window, cv2.WINDOW_NORMAL)
+    cv2.resizeWindow(window, 1280, 720)
 
-    logger.info("Ready. SPACEBAR to capture board_%04d, Q to quit.", board_num)
+    logger.info("Ready. Monitoring %s. CLICK image or press C to capture for board_%04d, Q to quit.",
+                args.monitor_name, board_num)
+
+    def on_mouse(event, x, y, flags, param):
+        nonlocal board_num, captured_count
+        if event == cv2.EVENT_LBUTTONDOWN:
+            ts = datetime.now()
+            board_id = f"board_{board_num:04d}"
+            logger.info("[SCAN] CLICK detected for %s", board_id)
+            f_capture = capture.get_latest_frame()
+
+            if f_capture is not None:
+                try:
+                    storage.save_frame(f_capture, ts, board_id, base_path,
+                                        args.jpg_quality, args.cam_capture)
+                    logger.info("[SCAN] ✓ %s captured from %s", board_id, args.capture_name)
+                    captured_count += 1
+                    board_num += 1
+                except Exception as e:
+                    logger.error("[SCAN] ✗ Failed to save %s: %s", board_id, e, exc_info=True)
+            else:
+                logger.warning("[SCAN] ✗ %s skipped — no frame available from %s", board_id, args.capture_name)
+
+    cv2.setMouseCallback(window, on_mouse)
 
     try:
         while True:
-            f1 = cam1.get_latest_frame()
-            f2 = cam2.get_latest_frame()
+            f_monitor = monitor.get_latest_frame()
 
-            t1 = make_thumb(f1, args.cam1_name, cam1.connected)
-            t2 = make_thumb(f2, args.cam2_name, cam2.connected)
-            combined = cv2.hconcat([t1, t2])
-            cv2.putText(combined, f"Boards captured: {captured_count}  (next: board_{board_num:04d})",
-                        (10, combined.shape[0] - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 0), 2)
-            cv2.imshow(window, combined)
+            t_monitor = make_thumb(f_monitor, f"{args.monitor_name} (position)", monitor.connected,
+                                   target_h=720, board_num=board_num, captured_count=captured_count)
+            cv2.imshow(window, t_monitor)
 
             key = cv2.waitKey(30) & 0xFF
 
             if key == ord("q") or key == 27:
                 break
 
-            elif key == ord(" "):
+            elif key == ord("c") or key == ord("C"):
                 ts = datetime.now()
                 board_id = f"board_{board_num:04d}"
-                any_saved = False
+                logger.info("[SCAN] KEY 'C' pressed for %s", board_id)
+                f_capture = capture.get_latest_frame()
 
-                if f1 is not None:
-                    storage.save_frame(f1, ts, f"{board_id}_{args.cam1_name}", base_path,
-                                        args.jpg_quality, args.cam1)
-                    any_saved = True
+                if f_capture is not None:
+                    try:
+                        storage.save_frame(f_capture, ts, board_id, base_path,
+                                            args.jpg_quality, args.cam_capture)
+                        logger.info("[SCAN] ✓ %s captured from %s", board_id, args.capture_name)
+                        captured_count += 1
+                        board_num += 1
+                    except Exception as e:
+                        logger.error("[SCAN] ✗ Failed to save %s: %s", board_id, e, exc_info=True)
                 else:
-                    logger.warning("[SCAN] %s: no frame available from %s", board_id, args.cam1_name)
-
-                if f2 is not None:
-                    storage.save_frame(f2, ts, f"{board_id}_{args.cam2_name}", base_path,
-                                        args.jpg_quality, args.cam2)
-                    any_saved = True
-                else:
-                    logger.warning("[SCAN] %s: no frame available from %s", board_id, args.cam2_name)
-
-                if any_saved:
-                    logger.info("[SCAN] %s captured", board_id)
-                    captured_count += 1
-                    board_num += 1
-                else:
-                    logger.error("[SCAN] %s skipped — neither camera had a frame", board_id)
+                    logger.warning("[SCAN] ✗ %s skipped — no frame available from %s", board_id, args.capture_name)
 
     except KeyboardInterrupt:
         pass
     finally:
         logger.info("Shutting down. Total boards captured this session: %d", captured_count)
-        cam1.stop()
-        cam2.stop()
+        monitor.stop()
+        capture.stop()
         cv2.destroyAllWindows()
         time.sleep(0.3)
 

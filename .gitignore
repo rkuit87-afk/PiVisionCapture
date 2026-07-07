@@ -34,3 +34,5 @@ config.yaml
 .env.local
 captures/
 *.pyc
+.claude/
+test_review/

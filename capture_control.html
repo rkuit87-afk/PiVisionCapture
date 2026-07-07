@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Capture Control</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            background: #222;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            text-align: center;
+        }
+        h1 {
+            margin: 0 0 40px 0;
+            font-size: 32px;
+        }
+        .button-container {
+            margin: 40px 0;
+        }
+        button {
+            width: 300px;
+            height: 120px;
+            font-size: 36px;
+            font-weight: bold;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin: 10px;
+        }
+        .capture-btn {
+            background: #22dd22;
+            color: #000;
+            box-shadow: 0 8px 0 #0a8a0a;
+        }
+        .capture-btn:active {
+            box-shadow: 0 2px 0 #0a8a0a;
+            transform: translateY(6px);
+        }
+        .capture-btn:hover {
+            background: #33ff33;
+        }
+        #status {
+            font-size: 18px;
+            margin: 20px 0;
+            min-height: 30px;
+            padding: 10px;
+            background: #333;
+            border-radius: 10px;
+        }
+        #count {
+            font-size: 48px;
+            font-weight: bold;
+            color: #22dd22;
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>📸 Capture Control</h1>
+
+    <div id="count">0 Captured</div>
+
+    <div class="button-container">
+        <button class="capture-btn" onclick="capture()">CAPTURE</button>
+    </div>
+
+    <div id="status">Ready</div>
+
+    <script>
+        let count = 0;
+        const API = 'http://192.168.2.11:8000';
+        const statusEl = document.getElementById('status');
+        const countEl = document.getElementById('count');
+
+        async function capture() {
+            const btn = event.target;
+            btn.disabled = true;
+            statusEl.textContent = 'Capturing...';
+
+            try {
+                const response = await fetch(API + '/capture', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        board_id: `board_${String(count + 1).padStart(4, '0')}`,
+                        camera: 'right'
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    count++;
+                    countEl.textContent = count + ' Captured';
+                    statusEl.textContent = '✓ Captured: ' + data.board_id;
+                    statusEl.style.color = '#22dd22';
+                } else {
+                    statusEl.textContent = '✗ Failed: ' + response.status;
+                    statusEl.style.color = '#ff4444';
+                }
+            } catch (err) {
+                statusEl.textContent = '✗ Error: ' + err.message;
+                statusEl.style.color = '#ff4444';
+            }
+
+            btn.disabled = false;
+        }
+    </script>
+</body>
+</html>

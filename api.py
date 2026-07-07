@@ -14,13 +14,18 @@ Run: python api.py [--port 5000]
 import argparse
 import json
 import logging
+import os
 import subprocess
 import threading
 import time
 from datetime import datetime
 from pathlib import Path
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_file, send_from_directory
+
+import cv2
+
+import storage
 
 logging.basicConfig(
     level=logging.INFO,
@@ -30,10 +35,101 @@ logging.basicConfig(
 logger = logging.getLogger("api")
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024  # 100MB max
 
 # Global app process handle
 _app_process = None
 _app_lock = threading.Lock()
+
+
+@app.route("/", methods=["GET"])
+def dashboard():
+    """Serve the dashboard HTML."""
+    try:
+        dashboard_file = Path.home() / "PiVisionCapture" / "dashboard.html"
+        if dashboard_file.exists():
+            return send_file(str(dashboard_file), mimetype="text/html")
+        return jsonify({"error": "dashboard.html not found"}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/capture-button", methods=["GET"])
+def capture_button():
+    """Serve the capture control button page."""
+    try:
+        button_file = Path.home() / "PiVisionCapture" / "capture_control.html"
+        if button_file.exists():
+            return send_file(str(button_file), mimetype="text/html")
+        return jsonify({"error": "capture_control.html not found"}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/left-camera", methods=["GET"])
+def left_camera():
+    """Serve the left camera live view page."""
+    try:
+        camera_file = Path.home() / "PiVisionCapture" / "left_camera.html"
+        if camera_file.exists():
+            return send_file(str(camera_file), mimetype="text/html")
+        return jsonify({"error": "left_camera.html not found"}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/capture", methods=["POST"])
+def capture_board():
+    """Capture a frame from specified camera and save it."""
+    try:
+        data = request.get_json() or {}
+        board_id = data.get("board_id", f"board_{int(time.time())}")
+        base_path = data.get("base_path", str(Path.home() / "PiVisionCapture" / "captures"))
+        camera = data.get("camera", "right")  # "right" or "left"
+
+        if camera == "left":
+            rtsp_url = os.environ.get("CAM_LEFT_RTSP_URL")
+        else:
+            rtsp_url = os.environ.get("CAM_RIGHT_RTSP_URL")
+
+        if not rtsp_url:
+            return jsonify({"error": f"RTSP URL not configured for camera '{camera}' (set CAM_LEFT_RTSP_URL / CAM_RIGHT_RTSP_URL)"}), 500
+
+        logger.info("[CAPTURE] Attempting capture for %s", board_id)
+
+        cap = cv2.VideoCapture(rtsp_url, cv2.CAP_FFMPEG)
+        cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+
+        if not cap.isOpened():
+            return jsonify({"error": "Failed to connect to camera"}), 500
+
+        ok, frame = cap.read()
+        cap.release()
+
+        if not ok:
+            return jsonify({"error": "Failed to read frame from camera"}), 500
+
+        ts = datetime.now()
+        img_path = storage.save_frame(frame, ts, board_id, base_path, 95, rtsp_url)
+
+        logger.info("[CAPTURE] ✓ Saved %s", img_path)
+
+        # Convert absolute path to relative path for /image endpoint
+        captures_base = Path.home() / "PiVisionCapture" / "captures"
+        rel_path = Path(img_path).relative_to(captures_base)
+        image_url = f"/image/{rel_path}"
+
+        return jsonify({
+            "status": "captured",
+            "board_id": board_id,
+            "file": str(img_path),
+            "image_url": image_url,
+            "timestamp": ts.isoformat(),
+        }), 201
+
+    except Exception as e:
+        logger.error("[CAPTURE] Failed: %s", e, exc_info=True)
+        return jsonify({"error": str(e)}), 500
 
 
 def _run_command(cmd: str, timeout: int = 10) -> dict:
@@ -245,6 +341,25 @@ def update_config():
         })
     except Exception as e:
         logger.error(f"[CONFIG] Failed to update: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/image/<path:filepath>", methods=["GET"])
+def serve_image(filepath):
+    """Serve captured image files."""
+    try:
+        captures_path = Path.home() / "PiVisionCapture" / "captures"
+        full_path = captures_path / filepath
+
+        # Security: prevent directory traversal
+        if not full_path.resolve().is_relative_to(captures_path.resolve()):
+            return jsonify({"error": "Access denied"}), 403
+
+        if not full_path.exists():
+            return jsonify({"error": "File not found"}), 404
+
+        return send_file(str(full_path), mimetype="image/jpeg")
+    except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 

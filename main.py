@@ -35,8 +35,26 @@ logger = logging.getLogger(__name__)
 
 def load_config(path: str) -> dict:
     """Load configuration from a YAML file."""
-    with open(path, encoding="utf-8") as f:
-        return yaml.safe_load(f)
+    try:
+        with open(path, encoding="utf-8") as f:
+            cfg = yaml.safe_load(f)
+            if cfg is None:
+                logger.error("Config file is empty: %s", path)
+                raise ValueError(f"Config file is empty: {path}")
+    except FileNotFoundError:
+        logger.error("Config file not found: %s", path)
+        raise
+    except yaml.YAMLError as e:
+        logger.error("Invalid YAML in config file %s: %s", path, e)
+        raise ValueError(f"Invalid YAML in {path}: {e}")
+
+    required_keys = ("camera", "trigger", "storage")
+    for key in required_keys:
+        if key not in cfg:
+            logger.error("Config missing required section '%s'", key)
+            raise ValueError(f"Config missing required section: {key}")
+
+    return cfg
 
 
 def main():

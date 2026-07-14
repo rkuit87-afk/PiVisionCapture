@@ -1,0 +1,72 @@
+﻿[
+    {
+        "name":  "DB_DebouncedFieldDevices",
+        "number":  2,
+        "group":  "/0.DB\u0027s",
+        "memory_layout":  "Standard",
+        "is_consistent":  true,
+        "modified":  "03/22/2026 09:55:01",
+        "xml":  "DB_2_DB_DebouncedFieldDevices.xml",
+        "export_error":  null
+    },
+    {
+        "name":  "DB_fieldDevices",
+        "number":  3,
+        "group":  "/0.DB\u0027s",
+        "memory_layout":  "Standard",
+        "is_consistent":  true,
+        "modified":  "07/12/2026 09:28:31",
+        "xml":  "DB_3_DB_fieldDevices.xml",
+        "export_error":  null
+    },
+    {
+        "name":  "DB_DataHandler",
+        "number":  4,
+        "group":  "/0.DB\u0027s",
+        "memory_layout":  "Standard",
+        "is_consistent":  true,
+        "modified":  "04/01/2026 13:42:05",
+        "xml":  "DB_4_DB_DataHandler.xml",
+        "export_error":  null
+    },
+    {
+        "name":  "DB_Test",
+        "number":  7,
+        "group":  "/0.DB\u0027s",
+        "memory_layout":  "Standard",
+        "is_consistent":  true,
+        "modified":  "03/22/2026 09:55:01",
+        "xml":  "DB_7_DB_Test.xml",
+        "export_error":  null
+    },
+    {
+        "name":  "DP_OP",
+        "number":  8,
+        "group":  "/0.DB\u0027s",
+        "memory_layout":  "Standard",
+        "is_consistent":  true,
+        "modified":  "03/22/2026 09:55:01",
+        "xml":  "DB_8_DP_OP.xml",
+        "export_error":  null
+    },
+    {
+        "name":  "DB_Mesurements",
+        "number":  13,
+        "group":  "/0.DB\u0027s",
+        "memory_layout":  "Standard",
+        "is_consistent":  true,
+        "modified":  "03/24/2026 06:22:24",
+        "xml":  "DB_13_DB_Mesurements.xml",
+        "export_error":  null
+    },
+    {
+        "name":  "DB_Vission",
+        "number":  1,
+        "group":  "/0.DB\u0027s",
+        "memory_layout":  "Standard",
+        "is_consistent":  true,
+        "modified":  "07/12/2026 11:28:19",
+        "xml":  "DB_1_DB_Vission.xml",
+        "export_error":  null
+    }
+]

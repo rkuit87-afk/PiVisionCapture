@@ -1,0 +1,1119 @@
+{
+  "DB_Mesurements": {
+    "db_number": 13,
+    "memory_layout": "Standard",
+    "size_bytes": 10,
+    "members": [
+      {
+        "name": "i_ThicknessRaw",
+        "type": "Int",
+        "byte": 0,
+        "bit": null
+      },
+      {
+        "name": "r_ThicknessScaled",
+        "type": "Real",
+        "byte": 2,
+        "bit": null
+      },
+      {
+        "name": "ProxyCount",
+        "type": "DInt",
+        "byte": 6,
+        "bit": null
+      }
+    ]
+  },
+  "DB_Vission": {
+    "db_number": 1,
+    "memory_layout": "Standard",
+    "size_bytes": 24,
+    "members": [
+      {
+        "name": "bTrigger",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 0
+      },
+      {
+        "name": "iBoardWidth",
+        "type": "Int",
+        "byte": 2,
+        "bit": null
+      },
+      {
+        "name": "bAck",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 0
+      },
+      {
+        "name": "bResultValid",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 1
+      },
+      {
+        "name": "bError",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 2
+      },
+      {
+        "name": "wSawWord",
+        "type": "Word",
+        "byte": 6,
+        "bit": null
+      },
+      {
+        "name": "iLengthMM",
+        "type": "Int",
+        "byte": 8,
+        "bit": null
+      },
+      {
+        "name": "iWidthMM",
+        "type": "Int",
+        "byte": 10,
+        "bit": null
+      },
+      {
+        "name": "iBoardCount",
+        "type": "Int",
+        "byte": 12,
+        "bit": null
+      },
+      {
+        "name": "iErrorCode",
+        "type": "Int",
+        "byte": 14,
+        "bit": null
+      },
+      {
+        "name": "iHeartbeat",
+        "type": "Int",
+        "byte": 16,
+        "bit": null
+      },
+      {
+        "name": "iFeedSpeedCmd",
+        "type": "Int",
+        "byte": 18,
+        "bit": null
+      },
+      {
+        "name": "wCompareWord",
+        "type": "Int",
+        "byte": 20,
+        "bit": null
+      },
+      {
+        "name": "bSawDownCompare",
+        "type": "Bool",
+        "byte": 22,
+        "bit": 0
+      }
+    ]
+  },
+  "DB_DebouncedFieldDevices": {
+    "db_number": 2,
+    "memory_layout": "Standard",
+    "size_bytes": 6,
+    "members": [
+      {
+        "name": "L_LArrayDebounced[1]",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 0
+      },
+      {
+        "name": "L_LArrayDebounced[2]",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 1
+      },
+      {
+        "name": "L_LArrayDebounced[3]",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 2
+      },
+      {
+        "name": "L_LArrayDebounced[4]",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 3
+      },
+      {
+        "name": "L_LArrayDebounced[5]",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 4
+      },
+      {
+        "name": "L_LArrayDebounced[6]",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 5
+      },
+      {
+        "name": "L_LArrayDebounced[7]",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 6
+      },
+      {
+        "name": "L_LArrayDebounced[8]",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 7
+      },
+      {
+        "name": "L_LArrayDebounced[9]",
+        "type": "Bool",
+        "byte": 1,
+        "bit": 0
+      },
+      {
+        "name": "L_LArrayDebounced[10]",
+        "type": "Bool",
+        "byte": 1,
+        "bit": 1
+      },
+      {
+        "name": "L_LArrayDebounced[11]",
+        "type": "Bool",
+        "byte": 1,
+        "bit": 2
+      },
+      {
+        "name": "L_LArrayDebounced[12]",
+        "type": "Bool",
+        "byte": 1,
+        "bit": 3
+      },
+      {
+        "name": "L_LArrayDebounced[13]",
+        "type": "Bool",
+        "byte": 1,
+        "bit": 4
+      },
+      {
+        "name": "L_LArrayDebounced[14]",
+        "type": "Bool",
+        "byte": 1,
+        "bit": 5
+      },
+      {
+        "name": "L_LArrayDebounced[15]",
+        "type": "Bool",
+        "byte": 1,
+        "bit": 6
+      },
+      {
+        "name": "B_ManDebounced[1]",
+        "type": "Bool",
+        "byte": 2,
+        "bit": 0
+      },
+      {
+        "name": "B_ManDebounced[2]",
+        "type": "Bool",
+        "byte": 2,
+        "bit": 1
+      },
+      {
+        "name": "B_ManDebounced[3]",
+        "type": "Bool",
+        "byte": 2,
+        "bit": 2
+      },
+      {
+        "name": "B_ManDebounced[4]",
+        "type": "Bool",
+        "byte": 2,
+        "bit": 3
+      },
+      {
+        "name": "B_ManDebounced[5]",
+        "type": "Bool",
+        "byte": 2,
+        "bit": 4
+      },
+      {
+        "name": "B_ManDebounced[6]",
+        "type": "Bool",
+        "byte": 2,
+        "bit": 5
+      },
+      {
+        "name": "B_ManDebounced[7]",
+        "type": "Bool",
+        "byte": 2,
+        "bit": 6
+      },
+      {
+        "name": "B_ManDebounced[8]",
+        "type": "Bool",
+        "byte": 2,
+        "bit": 7
+      },
+      {
+        "name": "B_ManDebounced[9]",
+        "type": "Bool",
+        "byte": 3,
+        "bit": 0
+      },
+      {
+        "name": "B_ManDebounced[10]",
+        "type": "Bool",
+        "byte": 3,
+        "bit": 1
+      },
+      {
+        "name": "B_ManDebounced[11]",
+        "type": "Bool",
+        "byte": 3,
+        "bit": 2
+      },
+      {
+        "name": "B_ManDebounced[12]",
+        "type": "Bool",
+        "byte": 3,
+        "bit": 3
+      },
+      {
+        "name": "B_ManDebounced[13]",
+        "type": "Bool",
+        "byte": 3,
+        "bit": 4
+      },
+      {
+        "name": "B_ManDebounced[14]",
+        "type": "Bool",
+        "byte": 3,
+        "bit": 5
+      },
+      {
+        "name": "B_ManDebounced[15]",
+        "type": "Bool",
+        "byte": 3,
+        "bit": 6
+      },
+      {
+        "name": "B_ControlsDebounced[1]",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 0
+      },
+      {
+        "name": "B_ControlsDebounced[2]",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 1
+      },
+      {
+        "name": "B_ControlsDebounced[3]",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 2
+      },
+      {
+        "name": "B_ControlsDebounced[4]",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 3
+      },
+      {
+        "name": "B_ControlsDebounced[5]",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 4
+      },
+      {
+        "name": "B_ControlsDebounced[6]",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 5
+      },
+      {
+        "name": "B_ControlsDebounced[7]",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 6
+      },
+      {
+        "name": "B_ControlsDebounced[8]",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 7
+      },
+      {
+        "name": "B_ControlsDebounced[9]",
+        "type": "Bool",
+        "byte": 5,
+        "bit": 0
+      },
+      {
+        "name": "B_ControlsDebounced[10]",
+        "type": "Bool",
+        "byte": 5,
+        "bit": 1
+      },
+      {
+        "name": "B_ControlsDebounced[11]",
+        "type": "Bool",
+        "byte": 5,
+        "bit": 2
+      },
+      {
+        "name": "B_ControlsDebounced[12]",
+        "type": "Bool",
+        "byte": 5,
+        "bit": 3
+      },
+      {
+        "name": "B_ControlsDebounced[13]",
+        "type": "Bool",
+        "byte": 5,
+        "bit": 4
+      },
+      {
+        "name": "B_ControlsDebounced[14]",
+        "type": "Bool",
+        "byte": 5,
+        "bit": 5
+      },
+      {
+        "name": "B_ControlsDebounced[15]",
+        "type": "Bool",
+        "byte": 5,
+        "bit": 6
+      }
+    ]
+  },
+  "DB_fieldDevices": {
+    "db_number": 3,
+    "memory_layout": "Standard",
+    "size_bytes": 8,
+    "members": [
+      {
+        "name": "StartStop_Cmd",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 0
+      },
+      {
+        "name": "Reset",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 1
+      },
+      {
+        "name": "L_CutlineSensor[1]",
+        "type": "Bool",
+        "byte": 2,
+        "bit": 0
+      },
+      {
+        "name": "L_CutlineSensor[2]",
+        "type": "Bool",
+        "byte": 2,
+        "bit": 1
+      },
+      {
+        "name": "L_CutlineSensor[3]",
+        "type": "Bool",
+        "byte": 2,
+        "bit": 2
+      },
+      {
+        "name": "L_CutlineSensor[4]",
+        "type": "Bool",
+        "byte": 2,
+        "bit": 3
+      },
+      {
+        "name": "L_CutlineSensor[5]",
+        "type": "Bool",
+        "byte": 2,
+        "bit": 4
+      },
+      {
+        "name": "L_CutlineSensor[6]",
+        "type": "Bool",
+        "byte": 2,
+        "bit": 5
+      },
+      {
+        "name": "L_CutlineSensor[7]",
+        "type": "Bool",
+        "byte": 2,
+        "bit": 6
+      },
+      {
+        "name": "L_CutlineSensor[8]",
+        "type": "Bool",
+        "byte": 2,
+        "bit": 7
+      },
+      {
+        "name": "L_CutlineSensor[9]",
+        "type": "Bool",
+        "byte": 3,
+        "bit": 0
+      },
+      {
+        "name": "L_CutlineSensor[10]",
+        "type": "Bool",
+        "byte": 3,
+        "bit": 1
+      },
+      {
+        "name": "L_CutlineSensor[11]",
+        "type": "Bool",
+        "byte": 3,
+        "bit": 2
+      },
+      {
+        "name": "L_CutlineSensor[12]",
+        "type": "Bool",
+        "byte": 3,
+        "bit": 3
+      },
+      {
+        "name": "L_CutlineSensor[13]",
+        "type": "Bool",
+        "byte": 3,
+        "bit": 4
+      },
+      {
+        "name": "L_CutlineSensor[14]",
+        "type": "Bool",
+        "byte": 3,
+        "bit": 5
+      },
+      {
+        "name": "L_CutlineSensor[15]",
+        "type": "Bool",
+        "byte": 3,
+        "bit": 6
+      },
+      {
+        "name": "B_CutlineButtons[1]",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 0
+      },
+      {
+        "name": "B_CutlineButtons[2]",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 1
+      },
+      {
+        "name": "B_CutlineButtons[3]",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 2
+      },
+      {
+        "name": "B_CutlineButtons[4]",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 3
+      },
+      {
+        "name": "B_CutlineButtons[5]",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 4
+      },
+      {
+        "name": "B_CutlineButtons[6]",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 5
+      },
+      {
+        "name": "B_CutlineButtons[7]",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 6
+      },
+      {
+        "name": "B_CutlineButtons[8]",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 7
+      },
+      {
+        "name": "B_CutlineButtons[9]",
+        "type": "Bool",
+        "byte": 5,
+        "bit": 0
+      },
+      {
+        "name": "B_CutlineButtons[10]",
+        "type": "Bool",
+        "byte": 5,
+        "bit": 1
+      },
+      {
+        "name": "B_CutlineButtons[11]",
+        "type": "Bool",
+        "byte": 5,
+        "bit": 2
+      },
+      {
+        "name": "B_CutlineButtons[12]",
+        "type": "Bool",
+        "byte": 5,
+        "bit": 3
+      },
+      {
+        "name": "B_CutlineButtons[13]",
+        "type": "Bool",
+        "byte": 5,
+        "bit": 4
+      },
+      {
+        "name": "B_CutlineButtons[14]",
+        "type": "Bool",
+        "byte": 5,
+        "bit": 5
+      },
+      {
+        "name": "B_CutlineButtons[15]",
+        "type": "Bool",
+        "byte": 5,
+        "bit": 6
+      },
+      {
+        "name": "B_Controls[1]",
+        "type": "Bool",
+        "byte": 6,
+        "bit": 0
+      },
+      {
+        "name": "B_Controls[2]",
+        "type": "Bool",
+        "byte": 6,
+        "bit": 1
+      },
+      {
+        "name": "B_Controls[3]",
+        "type": "Bool",
+        "byte": 6,
+        "bit": 2
+      },
+      {
+        "name": "B_Controls[4]",
+        "type": "Bool",
+        "byte": 6,
+        "bit": 3
+      },
+      {
+        "name": "B_Controls[5]",
+        "type": "Bool",
+        "byte": 6,
+        "bit": 4
+      },
+      {
+        "name": "B_Controls[6]",
+        "type": "Bool",
+        "byte": 6,
+        "bit": 5
+      },
+      {
+        "name": "B_Controls[7]",
+        "type": "Bool",
+        "byte": 6,
+        "bit": 6
+      },
+      {
+        "name": "B_Controls[8]",
+        "type": "Bool",
+        "byte": 6,
+        "bit": 7
+      },
+      {
+        "name": "B_Controls[9]",
+        "type": "Bool",
+        "byte": 7,
+        "bit": 0
+      },
+      {
+        "name": "B_Controls[10]",
+        "type": "Bool",
+        "byte": 7,
+        "bit": 1
+      },
+      {
+        "name": "B_Controls[11]",
+        "type": "Bool",
+        "byte": 7,
+        "bit": 2
+      },
+      {
+        "name": "B_Controls[12]",
+        "type": "Bool",
+        "byte": 7,
+        "bit": 3
+      },
+      {
+        "name": "B_Controls[13]",
+        "type": "Bool",
+        "byte": 7,
+        "bit": 4
+      },
+      {
+        "name": "B_Controls[14]",
+        "type": "Bool",
+        "byte": 7,
+        "bit": 5
+      },
+      {
+        "name": "B_Controls[15]",
+        "type": "Bool",
+        "byte": 7,
+        "bit": 6
+      }
+    ]
+  },
+  "DB_DataHandler": {
+    "db_number": 4,
+    "memory_layout": "Standard",
+    "size_bytes": 40,
+    "members": [
+      {
+        "name": "ProfileSelectrion",
+        "type": "Word",
+        "byte": 0,
+        "bit": null
+      },
+      {
+        "name": "ProfileRead",
+        "type": "Word",
+        "byte": 2,
+        "bit": null
+      },
+      {
+        "name": "Exception",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 0
+      },
+      {
+        "name": "ProfileEn",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 1
+      },
+      {
+        "name": "CountBuffer[0]",
+        "type": "Word",
+        "byte": 6,
+        "bit": null
+      },
+      {
+        "name": "CountBuffer[1]",
+        "type": "Word",
+        "byte": 8,
+        "bit": null
+      },
+      {
+        "name": "CountBuffer[2]",
+        "type": "Word",
+        "byte": 10,
+        "bit": null
+      },
+      {
+        "name": "CountBuffer[3]",
+        "type": "Word",
+        "byte": 12,
+        "bit": null
+      },
+      {
+        "name": "CutData[0].CutlineDist",
+        "type": "DInt",
+        "byte": 14,
+        "bit": null
+      },
+      {
+        "name": "CutData[0].ProfileInd",
+        "type": "Word",
+        "byte": 18,
+        "bit": null
+      },
+      {
+        "name": "CutData[1].CutlineDist",
+        "type": "DInt",
+        "byte": 20,
+        "bit": null
+      },
+      {
+        "name": "CutData[1].ProfileInd",
+        "type": "Word",
+        "byte": 24,
+        "bit": null
+      },
+      {
+        "name": "CutData[2].CutlineDist",
+        "type": "DInt",
+        "byte": 26,
+        "bit": null
+      },
+      {
+        "name": "CutData[2].ProfileInd",
+        "type": "Word",
+        "byte": 30,
+        "bit": null
+      },
+      {
+        "name": "CutData[3].CutlineDist",
+        "type": "DInt",
+        "byte": 32,
+        "bit": null
+      },
+      {
+        "name": "CutData[3].ProfileInd",
+        "type": "Word",
+        "byte": 36,
+        "bit": null
+      },
+      {
+        "name": "SawDone",
+        "type": "Bool",
+        "byte": 38,
+        "bit": 0
+      }
+    ]
+  },
+  "DB_Test": {
+    "db_number": 7,
+    "memory_layout": "Standard",
+    "size_bytes": 22,
+    "members": [
+      {
+        "name": "Saw1",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 0
+      },
+      {
+        "name": "Saw2",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 1
+      },
+      {
+        "name": "Saw3",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 2
+      },
+      {
+        "name": "Saw4",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 3
+      },
+      {
+        "name": "Saw5",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 4
+      },
+      {
+        "name": "Saw6",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 5
+      },
+      {
+        "name": "Saw7",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 6
+      },
+      {
+        "name": "Saw8",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 7
+      },
+      {
+        "name": "Saw9",
+        "type": "Bool",
+        "byte": 1,
+        "bit": 0
+      },
+      {
+        "name": "Saw10",
+        "type": "Bool",
+        "byte": 1,
+        "bit": 1
+      },
+      {
+        "name": "SawDown",
+        "type": "Bool",
+        "byte": 1,
+        "bit": 2
+      },
+      {
+        "name": "ProflefromSelection",
+        "type": "Word",
+        "byte": 2,
+        "bit": null
+      },
+      {
+        "name": "OrginSimulation",
+        "type": "Bool",
+        "byte": 4,
+        "bit": 0
+      },
+      {
+        "name": "ThicknessSimulation",
+        "type": "Real",
+        "byte": 6,
+        "bit": null
+      },
+      {
+        "name": "ProxySim",
+        "type": "Bool",
+        "byte": 10,
+        "bit": 0
+      },
+      {
+        "name": "StartMachineSimulation",
+        "type": "Bool",
+        "byte": 10,
+        "bit": 1
+      },
+      {
+        "name": "ProxyCountSimulation",
+        "type": "DInt",
+        "byte": 12,
+        "bit": null
+      },
+      {
+        "name": "L_CutlineSensorSim[1]",
+        "type": "Bool",
+        "byte": 16,
+        "bit": 0
+      },
+      {
+        "name": "L_CutlineSensorSim[2]",
+        "type": "Bool",
+        "byte": 16,
+        "bit": 1
+      },
+      {
+        "name": "L_CutlineSensorSim[3]",
+        "type": "Bool",
+        "byte": 16,
+        "bit": 2
+      },
+      {
+        "name": "L_CutlineSensorSim[4]",
+        "type": "Bool",
+        "byte": 16,
+        "bit": 3
+      },
+      {
+        "name": "L_CutlineSensorSim[5]",
+        "type": "Bool",
+        "byte": 16,
+        "bit": 4
+      },
+      {
+        "name": "L_CutlineSensorSim[6]",
+        "type": "Bool",
+        "byte": 16,
+        "bit": 5
+      },
+      {
+        "name": "L_CutlineSensorSim[7]",
+        "type": "Bool",
+        "byte": 16,
+        "bit": 6
+      },
+      {
+        "name": "L_CutlineSensorSim[8]",
+        "type": "Bool",
+        "byte": 16,
+        "bit": 7
+      },
+      {
+        "name": "L_CutlineSensorSim[9]",
+        "type": "Bool",
+        "byte": 17,
+        "bit": 0
+      },
+      {
+        "name": "L_CutlineSensorSim[10]",
+        "type": "Bool",
+        "byte": 17,
+        "bit": 1
+      },
+      {
+        "name": "L_CutlineSensorSim[11]",
+        "type": "Bool",
+        "byte": 17,
+        "bit": 2
+      },
+      {
+        "name": "L_CutlineSensorSim[12]",
+        "type": "Bool",
+        "byte": 17,
+        "bit": 3
+      },
+      {
+        "name": "L_CutlineSensorSim[13]",
+        "type": "Bool",
+        "byte": 17,
+        "bit": 4
+      },
+      {
+        "name": "L_CutlineSensorSim[14]",
+        "type": "Bool",
+        "byte": 17,
+        "bit": 5
+      },
+      {
+        "name": "L_CutlineSensorSim[15]",
+        "type": "Bool",
+        "byte": 17,
+        "bit": 6
+      },
+      {
+        "name": "B_ManipButtonsSim[1]",
+        "type": "Bool",
+        "byte": 18,
+        "bit": 0
+      },
+      {
+        "name": "B_ManipButtonsSim[2]",
+        "type": "Bool",
+        "byte": 18,
+        "bit": 1
+      },
+      {
+        "name": "B_ManipButtonsSim[3]",
+        "type": "Bool",
+        "byte": 18,
+        "bit": 2
+      },
+      {
+        "name": "B_ManipButtonsSim[4]",
+        "type": "Bool",
+        "byte": 18,
+        "bit": 3
+      },
+      {
+        "name": "B_ManipButtonsSim[5]",
+        "type": "Bool",
+        "byte": 18,
+        "bit": 4
+      },
+      {
+        "name": "B_ManipButtonsSim[6]",
+        "type": "Bool",
+        "byte": 18,
+        "bit": 5
+      },
+      {
+        "name": "B_ManipButtonsSim[7]",
+        "type": "Bool",
+        "byte": 18,
+        "bit": 6
+      },
+      {
+        "name": "B_ManipButtonsSim[8]",
+        "type": "Bool",
+        "byte": 18,
+        "bit": 7
+      },
+      {
+        "name": "B_ManipButtonsSim[9]",
+        "type": "Bool",
+        "byte": 19,
+        "bit": 0
+      },
+      {
+        "name": "B_ManipButtonsSim[10]",
+        "type": "Bool",
+        "byte": 19,
+        "bit": 1
+      },
+      {
+        "name": "B_ManipButtonsSim[11]",
+        "type": "Bool",
+        "byte": 19,
+        "bit": 2
+      },
+      {
+        "name": "B_ManipButtonsSim[12]",
+        "type": "Bool",
+        "byte": 19,
+        "bit": 3
+      },
+      {
+        "name": "B_ManipButtonsSim[13]",
+        "type": "Bool",
+        "byte": 19,
+        "bit": 4
+      },
+      {
+        "name": "B_ManipButtonsSim[14]",
+        "type": "Bool",
+        "byte": 19,
+        "bit": 5
+      },
+      {
+        "name": "B_ManipButtonsSim[15]",
+        "type": "Bool",
+        "byte": 19,
+        "bit": 6
+      },
+      {
+        "name": "Reset_ExceptionSim",
+        "type": "Bool",
+        "byte": 20,
+        "bit": 0
+      },
+      {
+        "name": "Reset_Buffer",
+        "type": "Bool",
+        "byte": 20,
+        "bit": 1
+      }
+    ]
+  },
+  "DP_OP": {
+    "db_number": 8,
+    "memory_layout": "Standard",
+    "size_bytes": 2,
+    "members": [
+      {
+        "name": "b_TargetReached",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 0
+      },
+      {
+        "name": "b_SawsDown",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 1
+      },
+      {
+        "name": "b_Running",
+        "type": "Bool",
+        "byte": 0,
+        "bit": 2
+      }
+    ]
+  }
+}

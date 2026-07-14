@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Board Grading - Saw Word Builder</title>
+<!--
+  ============================================================================
+  BOARD GRADING TOOL  (POC / ground-truth collection)
+  ============================================================================
+  Purpose: for each board, look at the LEFT (origin) and RIGHT (fishtail)
+  camera images side by side, mark which saws would drop, and pack that
+  selection into the 16-bit PLC saw word (wSawWord in the DB10 layout).
+
+  SAW LAYOUT (bit index = position in this order; bit 0 = LSB):
+    bit  0  1  2  3  4    5    6    7    8    9    10
+    saw 0.0 0.3 0.6 0.9 3.0  3.6  4.2  4.8  5.4  6.0  6.6
+    cam  L   L   L   L   L    R    R    R    R    R    R
+  LEFT camera sees the origin cluster + 3.0; RIGHT camera sees 3.6..6.6.
+
+  ACTUAL vs LABEL: the rounded labels (3.6, 6.6 ...) are just names. The
+  actual saw drop position carries an overcut offset, tape-measured directly
+  on the board (from the board's edge, not a machine ruler) on 2026-07-09:
+     - 0.0 is the fence datum, LOCKED (edge-detected) - measured at 18
+     - origin cluster and up all push PAST nominal -> roughly nominal + 30..90
+       (varies per saw, no fixed formula - use the measured actual values)
+     - 6.6 not reachable with this board (max reach was 6.0) - reusing the
+       2026-07-08 measurement of 6660 until re-measured with a longer board
+
+  WORD PACKING: each selected saw sets its bit; combine with bitwise OR.
+  (AND is only for testing the word later - packing is OR / set-the-bit.)
+  This must match the PLC's existing packing, which already works.
+
+  ------------------------------------------------------------------------
+  SPECIAL CONDITIONS (discovered during grading -> implement at commissioning)
+  Add new ones here as we find them so nothing gets lost:
+    * WIDTH RULE: boards narrower than 114 mm are normally left UNTRIMMED on
+      the origin side (0.0 not actuated) but still cut on the fishtail side.
+      For this POC we only WARN when width < 114 - the grader still decides,
+      so we capture real behaviour instead of baking in the assumption early.
+    * (add more here...)
+  ------------------------------------------------------------------------
+-->
+<style>
+  :root {
+    --bg: #f2efe8; --surface: #ffffff; --surface-2: #e9e4d8; --text: #241f19;
+    --muted: #756b5c; --border: #d9d0bf; --accent: #b5622f; --accent-ink: #ffffff;
+    --measure: #c0392b; --calib: #2f7a52; --origin: #2a5c8a; --warn: #b5522f;
+    --shadow: 0 1px 2px rgba(36,31,25,0.06), 0 6px 20px rgba(36,31,25,0.08);
+    --font-display: "Bahnschrift", "Segoe UI Semibold", "Segoe UI", system-ui, sans-serif;
+    --font-body: "Segoe UI", system-ui, -apple-system, sans-serif;
+    --font-mono: "Cascadia Code", "SF Mono", Consolas, "Courier New", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17191b; --surface: #202327; --surface-2: #262a2f; --text: #eae6dd;
+      --muted: #96a09c; --border: #33383d; --accent: #d97f45; --accent-ink: #17191b;
+      --measure: #e2564a; --calib: #4caf7d; --origin: #5b9bd9; --warn: #e0894b;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:var(--bg); color:var(--text); font-family:var(--font-body); height:100%; }
+  body { display:flex; flex-direction:column; min-height:100vh; }
+  header {
+    display:flex; align-items:center; gap:0.75rem; padding:0.7rem 1rem;
+    border-bottom:1px solid var(--border); background:var(--surface); flex-wrap:wrap;
+  }
+  header h1 { font-family:var(--font-display); font-size:1.05rem; font-weight:600; margin:0; white-space:nowrap; }
+  .spacer { flex:1; }
+  .field { display:flex; align-items:center; gap:0.35rem; font-size:0.82rem; }
+  .field label { color:var(--muted); }
+  input[type="text"], input[type="number"] {
+    padding:0.35rem 0.5rem; border-radius:6px; border:1px solid var(--border);
+    background:var(--surface-2); color:var(--text); font-family:var(--font-mono);
+    font-size:0.85rem; font-variant-numeric:tabular-nums;
+  }
+  input.w-short { width:6.5rem; }
+  input.w-tiny { width:5rem; }
+  button, .file-btn {
+    font-family:var(--font-body); font-size:0.8rem; font-weight:600;
+    padding:0.4rem 0.7rem; border-radius:8px; border:1px solid var(--border);
+    background:var(--surface-2); color:var(--text); cursor:pointer; white-space:nowrap;
+  }
+  button:hover, .file-btn:hover { border-color:var(--accent); }
+  button.primary { background:var(--accent); color:var(--accent-ink); border-color:var(--accent); }
+  button[aria-pressed="true"] { background:var(--calib); color:#fff; border-color:var(--calib); }
+  main { flex:1; display:grid; grid-template-columns:1fr 1fr 340px; gap:1px; background:var(--border); overflow:hidden; }
+  @media (max-width:1300px){ main{ grid-template-columns:1fr 1fr; } aside{ grid-column:1/-1; } }
+  @media (max-width:820px){ main{ grid-template-columns:1fr; } }
+  .stage { background:var(--bg); display:flex; flex-direction:column; align-items:center; padding:0.6rem; overflow:auto; gap:0.4rem; }
+  .stage-head { display:flex; align-items:center; gap:0.5rem; width:100%; }
+  .stage-title { font-size:0.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; }
+  .stage-title b { color:var(--text); }
+  .stage .status { font-size:0.72rem; color:var(--calib); min-height:1em; }
+  .canvas-wrap { position:relative; line-height:0; box-shadow:var(--shadow); max-width:100%; }
+  canvas { display:block; max-width:100%; height:auto; border-radius:2px; }
+  canvas.sized { max-width:none; }
+  canvas.calibrating { cursor:crosshair; }
+  .zoom-controls { display:flex; align-items:center; gap:0.25rem; margin-left:auto; }
+  .zoom-controls button { padding:0.25rem 0.55rem; font-size:0.8rem; line-height:1; }
+  .zoom-controls span { font-size:0.7rem; color:var(--muted); min-width:2.8rem; text-align:center; font-family:var(--font-mono); }
+  aside { background:var(--surface); display:flex; flex-direction:column; min-height:0; overflow-y:auto; }
+  .grp { padding:0.75rem 0.85rem; border-bottom:1px solid var(--border); }
+  .grp h2 { font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); margin:0 0 0.6rem; }
+  .saw-row { display:grid; grid-template-columns:1.4rem 2.4rem 1fr auto; align-items:center; gap:0.4rem; padding:0.15rem 0.3rem; margin:0 -0.3rem; border-radius:5px; font-family:var(--font-mono); font-size:0.82rem; }
+  .saw-row:hover { background:color-mix(in srgb, var(--accent) 14%, transparent); }
+  .saw-row .lbl { font-weight:600; }
+  .saw-row .side { font-size:0.68rem; color:var(--muted); }
+  .saw-row input[type="number"] { width:5.2rem; }
+  .saw-row.locked .lbl { color:var(--origin); }
+  .saw-row .locknote { font-size:0.66rem; color:var(--origin); }
+  .word-box { font-family:var(--font-mono); }
+  .word-bits { font-size:1.05rem; letter-spacing:0.06em; background:var(--surface-2); border-radius:6px; padding:0.5rem 0.6rem; text-align:center; }
+  .word-sub { display:flex; justify-content:space-between; font-size:0.78rem; color:var(--muted); margin-top:0.4rem; }
+  .warn { background:color-mix(in srgb, var(--warn) 18%, transparent); border-left:3px solid var(--warn); color:var(--warn); padding:0.5rem 0.6rem; border-radius:4px; font-size:0.76rem; line-height:1.35; margin-top:0.5rem; }
+  textarea { width:100%; min-height:3.5rem; resize:vertical; padding:0.45rem 0.5rem; border-radius:6px; border:1px solid var(--border); background:var(--surface-2); color:var(--text); font-family:var(--font-body); font-size:0.82rem; }
+  .hint { font-size:0.72rem; color:var(--muted); line-height:1.4; margin-top:0.4rem; }
+  .rec-row { display:flex; gap:0.4rem; }
+  .rec-row button { flex:1; }
+  #recordList { font-family:var(--font-mono); font-size:0.72rem; color:var(--muted); max-height:9rem; overflow:auto; margin-top:0.5rem; }
+  #recordList div { padding:0.15rem 0; border-bottom:1px dashed var(--border); }
+</style>
+</head>
+<body>
+<header>
+  <h1>Board Grading</h1>
+  <label class="file-btn" for="fileL">Load LEFT batch<input id="fileL" type="file" accept="image/*" multiple hidden></label>
+  <label class="file-btn" for="fileR">Load RIGHT batch<input id="fileR" type="file" accept="image/*" multiple hidden></label>
+  <button id="btnExportCalib">Export Calib</button>
+  <label class="file-btn" for="fileImportCalib">Import Calib<input id="fileImportCalib" type="file" accept="application/json" hidden></label>
+  <span class="field" id="queueStatus"></span>
+  <div class="field"><label for="boardId">Board</label><input id="boardId" type="text" class="w-short" placeholder="e.g. 42"></div>
+  <div class="field"><label for="boardLen">Length mm</label><input id="boardLen" type="number" class="w-tiny" value="6759"></div>
+  <div class="field"><label for="boardWidth">Width mm</label><input id="boardWidth" type="number" class="w-tiny" value="114"></div>
+  <div class="spacer"></div>
+  <button id="btnPrev">&#9664; Prev</button>
+  <button id="btnSave" class="primary">Save board</button>
+</header>
+
+<main>
+  <!-- LEFT (origin) -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-title">LEFT view &mdash; <b>origin</b> (0.0 0.3 0.6 0.9 3.0)</span>
+      <button id="calibL" aria-pressed="false">Calibrate</button>
+      <div class="zoom-controls">
+        <button id="zoomOutL" title="Zoom out">&minus;</button>
+        <span id="zoomLabelL">Fit</span>
+        <button id="zoomInL" title="Zoom in">+</button>
+        <button id="zoomFitL" title="Reset to fit">Fit</button>
+      </div>
+    </div>
+    <div class="status" id="statusL">Load the left image, then Calibrate and click each saw position (0.0, 0.3, 0.6, 0.9, 3.0) in turn.</div>
+    <div class="warn" id="originRefWarn">No physical 3.0 reference mark on the origin side yet &mdash; mark/measure it on the machine before calibrating this side, otherwise the click is a guess.</div>
+    <div class="canvas-wrap"><canvas id="canL"></canvas></div>
+  </div>
+  <!-- RIGHT (fishtail) -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-title">RIGHT view &mdash; <b>fishtail</b> (3.6 4.2 4.8 5.4 6.0 6.6)</span>
+      <button id="calibR" aria-pressed="false">Calibrate</button>
+      <div class="zoom-controls">
+        <button id="zoomOutR" title="Zoom out">&minus;</button>
+        <span id="zoomLabelR">Fit</span>
+        <button id="zoomInR" title="Zoom in">+</button>
+        <button id="zoomFitR" title="Reset to fit">Fit</button>
+      </div>
+    </div>
+    <div class="status" id="statusR">Load the right image, then Calibrate and click each saw position (3.6, 4.2, 4.8, 5.4, 6.0) in turn &mdash; 6.6 is extrapolated automatically.</div>
+    <div class="canvas-wrap"><canvas id="canR"></canvas></div>
+  </div>
+
+  <aside>
+    <div class="grp">
+      <h2>Saws &mdash; tick to drop, type actual mm to nudge, hover a row to spot its line on the image</h2>
+      <div id="sawList"></div>
+      <div id="widthWarn"></div>
+    </div>
+
+    <div class="grp">
+      <h2>Saw word (bit0 = 0.0 &rarr; bit10 = 6.6)</h2>
+      <div class="word-box">
+        <div class="word-bits" id="wordBits">0000 0000 0000 0000</div>
+        <div class="word-sub">
+          <span id="wordHex">0x0000</span>
+          <span class="field">
+            <label for="wordInputDec">Dec:</label>
+            <input id="wordInputDec" type="number" value="0" class="w-tiny" style="width: 6rem;">
+          </span>
+        </div>
+      </div>
+      <div class="hint" id="wordHint">Packed by OR-ing each selected saw's bit. Enter a decimal saw word to visualize cuts.</div>
+    </div>
+
+    <div class="grp">
+      <h2>Notes / special conditions</h2>
+      <textarea id="notes" placeholder="Anything odd about this board or the cut... captured for commissioning."></textarea>
+    </div>
+
+    <div class="grp">
+      <h2>Session records</h2>
+      <div class="rec-row">
+        <button id="btnCopy">Copy JSON</button>
+        <button id="btnDownload">Download all</button>
+        <button id="btnClear">Clear</button>
+      </div>
+      <div id="recordList"></div>
+    </div>
+  </aside>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  // --- Saw definitions (order defines bit index; bit 0 = LSB = 0.0) ---
+  const SAWS = [
+    { label: "0.0", nominal: 0,    actual: 18,   side: "L", locked: true },
+    { label: "0.3", nominal: 300,  actual: 260,  side: "L" },
+    { label: "0.6", nominal: 600,  actual: 560,  side: "L" },
+    { label: "0.9", nominal: 900,  actual: 860,  side: "L" },
+    { label: "3.0", nominal: 3000, actual: 3057, side: "L" },
+    { label: "3.6", nominal: 3600, actual: 3670, side: "R" },
+    { label: "4.2", nominal: 4200, actual: 4249, side: "R" },
+    { label: "4.8", nominal: 4800, actual: 4813, side: "R" },
+    { label: "5.4", nominal: 5400, actual: 5490, side: "R" },
+    { label: "6.0", nominal: 6000, actual: 6023, side: "R" },
+    { label: "6.6", nominal: 6600, actual: 6660, side: "R" },
+  ];
+  const WIDTH_TRIM_LIMIT = 114; // below this: origin trim (0.0) normally left off
+
+  // Calibration is per-saw now (not 2-anchor interpolation) - the lens is
+  // fisheye-distorted enough that a linear px<->mm scale from just 2 points
+  // is wrong everywhere else in frame. Each saw's pixel position is clicked
+  // directly and stored on the saw itself (SAWS[i].px). 6.6 is excluded from
+  // the click order - it's not reachable on a board this length, so its
+  // line gets extrapolated from the last two clicked R points instead.
+  const CALIB = {
+    L: { order: SAWS.filter(s => s.side === "L").map(s => s.label) },
+    R: { order: SAWS.filter(s => s.side === "R" && s.label !== "6.6").map(s => s.label) },
+  };
+
+  function isCalibrated(side) {
+    return SAWS.filter(s => s.side === side).every(s => s.px != null);
+  }
+
+  const views = {
+    L: { canvas: null, ctx: null, img: new Image(), calStep: 0, hoverSaw: null, zoom: 1 },
+    R: { canvas: null, ctx: null, img: new Image(), calStep: 0, hoverSaw: null, zoom: 1 },
+  };
+  const selected = {}; // label -> bool
+  let records = [];
+
+  // --- Batch queue + preload state ---
+  // Board N's L/R photo pair = filesL[N] / filesR[N] (matched by sort order).
+  // Camera rigs are fixed, so once a side is calibrated its px<->mm scale is
+  // reused for every board in the queue - only recalibrate if a camera moved.
+  let filesL = [], filesR = [];
+  let queueIndex = -1;
+  const preloadCache = {}; // index -> { L: HTMLImageElement, R: HTMLImageElement }
+
+  const $ = (id) => document.getElementById(id);
+
+  function init() {
+    views.L.canvas = $("canL"); views.L.ctx = $("canL").getContext("2d");
+    views.R.canvas = $("canR"); views.R.ctx = $("canR").getContext("2d");
+
+    $("fileL").addEventListener("change", (e) => loadImage(e, "L"));
+    $("fileR").addEventListener("change", (e) => loadImage(e, "R"));
+    $("calibL").addEventListener("click", () => startCalib("L"));
+    $("calibR").addEventListener("click", () => startCalib("R"));
+    views.L.canvas.addEventListener("click", (e) => onCanvasClick(e, "L"));
+    views.R.canvas.addEventListener("click", (e) => onCanvasClick(e, "R"));
+
+    ["L", "R"].forEach((side) => {
+      $("zoomIn" + side).addEventListener("click", () => setZoom(side, views[side].zoom * 1.25));
+      $("zoomOut" + side).addEventListener("click", () => setZoom(side, views[side].zoom / 1.25));
+      $("zoomFit" + side).addEventListener("click", () => setZoom(side, 1));
+      views[side].canvas.parentElement.addEventListener("wheel", (e) => {
+        if (!e.ctrlKey) return;
+        e.preventDefault();
+        setZoom(side, views[side].zoom * (e.deltaY < 0 ? 1.1 : 1 / 1.1));
+      }, { passive: false });
+    });
+    window.addEventListener("resize", () => { applyZoom("L"); applyZoom("R"); });
+
+    ["boardWidth"].forEach(id => $(id).addEventListener("input", updateWidthWarning));
+    $("btnSave").addEventListener("click", saveAndAdvance);
+    $("btnPrev").addEventListener("click", () => goToIndex(queueIndex - 1));
+    $("btnCopy").addEventListener("click", copyJSON);
+    $("btnDownload").addEventListener("click", downloadAll);
+    $("btnClear").addEventListener("click", clearRecords);
+    $("btnExportCalib").addEventListener("click", exportCalibration);
+    $("fileImportCalib").addEventListener("change", importCalibration);
+
+    $("wordInputDec").addEventListener("input", onWordInput);
+    // 0.0 defaults to selected (fence trim on by default; width rule may change it)
+    SAWS.forEach(s => { selected[s.label] = (s.label === "0.0"); });
+
+    loadCalibration();
+    buildSawList();
+    loadRecords();
+    updateWord();
+    updateWidthWarning();
+    updateOriginRefWarn();
+    placeholderCanvas("L"); placeholderCanvas("R");
+  }
+
+  // Calibration (each saw's clicked pixel position) is saved to localStorage
+  // so it survives a page reload - re-clicking every saw each session would
+  // defeat the point of a fixed-mount camera. Export/Import carries the same
+  // data as a JSON file, for moving calibration to another PC (e.g. via USB)
+  // without redoing the click-through.
+  function buildCalibrationData() {
+    const data = {};
+    ["L", "R"].forEach(side => {
+      data[side] = { saws: {} };
+      SAWS.filter(s => s.side === side).forEach(s => {
+        if (s.px != null) data[side].saws[s.label] = { px: s.px, estimated: !!s.estimated };
+      });
+    });
+    return data;
+  }
+
+  function applyCalibrationData(data) {
+    if (!data) return;
+    ["L", "R"].forEach(side => {
+      const d = data[side];
+      if (!d) return;
+      SAWS.filter(s => s.side === side).forEach(s => {
+        const saved = d.saws[s.label];
+        if (saved) { s.px = saved.px; s.estimated = saved.estimated; }
+      });
+    });
+  }
+
+  function persistCalibration() {
+    try { localStorage.setItem("gradingCalibration", JSON.stringify(buildCalibrationData())); } catch (e) {}
+  }
+
+  function loadCalibration() {
+    let data;
+    try { data = JSON.parse(localStorage.getItem("gradingCalibration") || "null"); } catch (e) { data = null; }
+    applyCalibrationData(data);
+  }
+
+  function exportCalibration() {
+    const blob = new Blob([JSON.stringify(buildCalibrationData(), null, 2)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "grading_calibration_" + new Date().toISOString().slice(0, 10) + ".json";
+    a.click();
+  }
+
+  function importCalibration(e) {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      let data;
+      try { data = JSON.parse(ev.target.result); } catch (err) { alert("Invalid calibration file."); return; }
+      applyCalibrationData(data);
+      persistCalibration();
+      updateOriginRefWarn();
+      drawView("L"); drawView("R");
+    };
+    reader.readAsText(file);
+  }
+
+  function updateOriginRefWarn() {
+    $("originRefWarn").style.display = isCalibrated("L") ? "none" : "block";
+  }
+
+  function buildSawList() {
+    const el = $("sawList");
+    el.innerHTML = "";
+    SAWS.forEach((s, i) => {
+      const row = document.createElement("div");
+      row.className = "saw-row" + (s.locked ? " locked" : "");
+      row.innerHTML = `
+        <input type="checkbox" data-saw="${s.label}" ${selected[s.label] ? "checked" : ""} title="drop saw ${s.label}">
+        <span class="lbl">${s.label}</span>
+        <span>
+          <input type="number" data-actual="${s.label}" value="${s.actual}" step="1"
+                 ${s.locked ? "disabled" : ""} title="actual mm position">
+          ${s.locked ? '<span class="locknote"> fence (locked)</span>' : ''}
+        </span>
+        <span class="side">bit ${i} &middot; ${s.side}</span>`;
+      row.addEventListener("mouseenter", () => { views[s.side].hoverSaw = s.label; drawView(s.side); });
+      row.addEventListener("mouseleave", () => { views[s.side].hoverSaw = null; drawView(s.side); });
+      el.appendChild(row);
+    });
+    el.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      cb.addEventListener("change", (e) => {
+        selected[e.target.dataset.saw] = e.target.checked;
+        updateWord();
+      });
+    });
+    el.querySelectorAll('input[data-actual]').forEach(inp => {
+      inp.addEventListener("input", (e) => {
+        const saw = SAWS.find(x => x.label === e.target.dataset.actual);
+        const v = parseFloat(e.target.value);
+        if (!isNaN(v)) { saw.actual = v; drawView(saw.side); }
+      });
+    });
+  }
+
+  function loadImage(e, side) {
+    const files = Array.from(e.target.files || []);
+    if (!files.length) return;
+    files.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+    if (side === "L") filesL = files; else filesR = files;
+    for (const k in preloadCache) delete preloadCache[k];
+    updateQueueStatus();
+    if (filesL.length && filesR.length) goToIndex(0);
+  }
+
+  function updateQueueStatus() {
+    const n = Math.min(filesL.length, filesR.length);
+    const el = $("queueStatus");
+    if (!n) { el.textContent = ""; return; }
+    el.textContent = "Board " + (queueIndex + 1) + " / " + n +
+      (filesL.length !== filesR.length ? "  (L/R count mismatch!)" : "");
+    $("btnPrev").disabled = queueIndex <= 0;
+    $("btnSave").textContent = (queueIndex < n - 1) ? "Save & Next ▶" : "Save board (last)";
+  }
+
+  // Decodes filesL[i]/filesR[i] into cached <img> elements without touching the
+  // visible canvases, so goToIndex() can swap them in with no load delay.
+  function preloadIndex(i) {
+    if (i < 0 || i >= filesL.length || i >= filesR.length) return;
+    if (preloadCache[i]) return;
+    const entry = { L: new Image(), R: new Image() };
+    entry.L.src = URL.createObjectURL(filesL[i]);
+    entry.R.src = URL.createObjectURL(filesR[i]);
+    preloadCache[i] = entry;
+  }
+
+  // Only the tick (which saws drop) resets per board - saw position is a
+  // fixed machine measurement, not something re-measured board to board.
+  function resetSawDefaults() {
+    SAWS.forEach(s => { selected[s.label] = (s.label === "0.0"); });
+  }
+
+  function goToIndex(i) {
+    if (i < 0 || i >= filesL.length || i >= filesR.length) return;
+    queueIndex = i;
+    preloadIndex(i);
+    const entry = preloadCache[i];
+    ["L", "R"].forEach((side) => {
+      const v = views[side];
+      const img = entry[side];
+      const apply = () => {
+        v.img = img;
+        v.canvas.width = img.naturalWidth;
+        v.canvas.height = img.naturalHeight;
+        v.calStep = 0;
+        $("status" + side).textContent = isCalibrated(side) ?
+          "Loaded. Reusing existing calibration." :
+          "Loaded. Click Calibrate and click each saw position in turn.";
+        applyZoom(side);
+        drawView(side);
+      };
+      if (img.complete && img.naturalWidth) apply(); else img.onload = apply;
+    });
+    const name = filesL[i].name.replace(/\.[^.]+$/, "");
+    $("boardId").value = name;
+    $("notes").value = "";
+    resetSawDefaults();
+    buildSawList();
+    updateWord();
+    updateQueueStatus();
+    preloadIndex(i + 1); // get the next board ready while this one is graded
+  }
+
+  function saveAndAdvance() {
+    if (queueIndex >= 0) {
+      saveBoard();
+      goToIndex(queueIndex + 1);
+    } else {
+      saveBoard();
+    }
+  }
+
+  // Canvas backing store stays at full image resolution always (so saw lines
+  // and calibration clicks stay pixel-accurate); zoom only scales the CSS
+  // display size, with the .stage panel's overflow:auto providing panning.
+  function applyZoom(side) {
+    const v = views[side];
+    if (!v.canvas.width) return;
+    const stage = v.canvas.closest(".stage");
+    const cs = getComputedStyle(stage);
+    const containerWidth = stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    const fitWidth = Math.min(v.canvas.width, containerWidth || v.canvas.width);
+    v.canvas.classList.add("sized");
+    v.canvas.style.width = (fitWidth * v.zoom) + "px";
+    v.canvas.style.height = "auto";
+    $("zoomLabel" + side).textContent = v.zoom === 1 ? "Fit" : Math.round(v.zoom * 100) + "%";
+  }
+
+  function setZoom(side, z) {
+    views[side].zoom = Math.min(6, Math.max(0.25, z));
+    applyZoom(side);
+  }
+
+  function placeholderCanvas(side) {
+    const v = views[side];
+    v.canvas.width = 640; v.canvas.height = 200;
+    const c = v.ctx;
+    c.fillStyle = getVar("--surface-2"); c.fillRect(0, 0, 640, 200);
+    c.fillStyle = getVar("--muted"); c.font = "16px sans-serif"; c.textAlign = "center";
+    c.fillText("Load " + side + " image", 320, 100);
+  }
+
+  // Calibration prompts show the exact measured mm, not the rounded label,
+  // so the click target is unambiguous while you're still aiming.
+  function calibPrompt(label) {
+    const saw = SAWS.find(s => s.label === label);
+    return "saw " + label + " (exact: " + Math.round(saw.actual) + " mm from fence)";
+  }
+
+  function startCalib(side) {
+    const v = views[side];
+    if (!v.img.src) { $("status" + side).textContent = "Load the image first."; return; }
+    SAWS.filter(s => s.side === side).forEach(s => { s.px = null; s.estimated = false; });
+    v.calStep = 1;
+    $("calib" + side).setAttribute("aria-pressed", "true");
+    v.canvas.classList.add("calibrating");
+    const order = CALIB[side].order;
+    $("status" + side).textContent = "Click the " + calibPrompt(order[0]) + " position. [1/" + order.length + "]";
+    drawView(side);
+  }
+
+  // 6.6 isn't reachable on a board this length, so it can't be clicked -
+  // extrapolate its pixel position from the slope of the last two clicked
+  // R points (5.4 -> 6.0) instead, and flag it as estimated, not measured.
+  function estimateUnreachable(side) {
+    const order = CALIB[side].order;
+    const remaining = SAWS.filter(s => s.side === side && s.px == null);
+    if (!remaining.length) return;
+    const a = SAWS.find(s => s.label === order[order.length - 2]);
+    const b = SAWS.find(s => s.label === order[order.length - 1]);
+    if (!a || !b || a.px == null || b.px == null || a.actual === b.actual) return;
+    const pxPerMm = (b.px - a.px) / (b.actual - a.actual);
+    remaining.forEach(s => {
+      s.px = b.px + (s.actual - b.actual) * pxPerMm;
+      s.estimated = true;
+    });
+  }
+
+  function onCanvasClick(e, side) {
+    const v = views[side];
+    if (!v.calStep) return;
+    const order = CALIB[side].order;
+    const p = canvasPoint(e, v.canvas);
+    const label = order[v.calStep - 1];
+    const saw = SAWS.find(s => s.label === label);
+    saw.px = p.x; saw.estimated = false;
+    if (v.calStep < order.length) {
+      v.calStep++;
+      $("status" + side).textContent = "Click the " + calibPrompt(order[v.calStep - 1]) +
+        " position. [" + v.calStep + "/" + order.length + "]";
+      persistCalibration();
+      drawView(side);
+    } else {
+      v.calStep = 0;
+      v.canvas.classList.remove("calibrating");
+      $("calib" + side).setAttribute("aria-pressed", "false");
+      estimateUnreachable(side);
+      $("status" + side).textContent = "Calibrated " + order.length + " saw position" +
+        (order.length === 1 ? "" : "s") + (isCalibrated(side) && SAWS.some(s => s.side === side && s.estimated) ?
+          " (plus 1 extrapolated)." : ".");
+      if (side === "L") updateOriginRefWarn();
+      persistCalibration();
+      drawView(side);
+    }
+  }
+
+  function drawView(side) {
+    const v = views[side];
+    if (!v.img.src) return;
+    const c = v.ctx, w = v.canvas.width, h = v.canvas.height;
+    c.clearRect(0, 0, w, h);
+    c.drawImage(v.img, 0, 0);
+    const lw = Math.max(2, w / 700);
+    const fs = Math.max(15, w / 95);
+    SAWS.filter(s => s.side === side).forEach(s => {
+      const x = s.px;
+      if (x == null || x < 0 || x > w) return;
+      const on = selected[s.label];
+      const hovered = v.hoverSaw === s.label;
+      const col = hovered ? "#ffd23f" : (s.locked ? getVar("--origin") : (on ? getVar("--measure") : getVar("--muted")));
+      c.save();
+      c.strokeStyle = col; c.globalAlpha = hovered || on || s.locked ? 1 : 0.55;
+      c.lineWidth = hovered ? lw * 2.5 : lw;
+      c.setLineDash(hovered || on || s.locked ? [] : (s.estimated ? [3, 4] : [8, 6]));
+      if (hovered) { c.shadowColor = col; c.shadowBlur = lw * 6; }
+      c.beginPath(); c.moveTo(x, 0); c.lineTo(x, h); c.stroke();
+      c.setLineDash([]); c.shadowBlur = 0;
+      // label chip
+      const txt = s.label + (s.locked ? " (fence)" : "") + (s.estimated ? " (est.)" : "") + "  " + Math.round(s.actual);
+      c.font = (hovered ? "700 " : "600 ") + (hovered ? fs * 1.15 : fs) + "px " + getVar("--font-mono");
+      const tw = c.measureText(txt).width;
+      c.globalAlpha = 1;
+      c.fillStyle = hovered ? col : "rgba(0,0,0,0.75)";
+      c.fillRect(x + 4, 6, tw + 12, (hovered ? fs * 1.15 : fs) + 10);
+      c.fillStyle = hovered ? "#1a1a1a" : "#fff";
+      c.fillText(txt, x + 10, 6 + (hovered ? fs * 1.15 : fs) + 1);
+      c.restore();
+    });
+  }
+
+  function updateWord() {
+    let word = 0;
+    SAWS.forEach((s, i) => { if (selected[s.label]) word |= (1 << i); });
+    const bits = word.toString(2).padStart(16, "0").replace(/(.{4})(?=.)/g, "$1 ");
+    $("wordBits").textContent = bits;
+    const hex = "0x" + word.toString(16).toUpperCase().padStart(4, "0");
+    $("wordHex").textContent = hex;
+    $("wordInputDec").value = String(word);
+    drawView("L"); drawView("R");
+    return word;
+  }
+
+  function onWordInput(e) {
+    const inputWord = parseInt(e.target.value, 10);
+    if (isNaN(inputWord) || inputWord < 0) return;
+
+    SAWS.forEach((s, i) => {
+      const shouldBeSelected = (inputWord & (1 << i)) !== 0;
+      selected[s.label] = shouldBeSelected;
+      const checkbox = document.querySelector(`input[data-saw="${s.label}"]`);
+      if (checkbox) checkbox.checked = shouldBeSelected;
+    });
+    updateWord();
+  }
+
+  function updateWidthWarning() {
+    const w = parseFloat($("boardWidth").value);
+    const box = $("widthWarn");
+    if (!isNaN(w) && w < WIDTH_TRIM_LIMIT) {
+      box.innerHTML = '<div class="warn">Width ' + w + ' mm &lt; ' + WIDTH_TRIM_LIMIT +
+        ' mm: origin trim <b>0.0 is normally left UNACTUATED</b> on the origin side ' +
+        '(fishtail side still cut). Untick 0.0 if this board follows that rule.</div>';
+    } else {
+      box.innerHTML = "";
+    }
+  }
+
+  function currentRecord() {
+    const word = updateWord();
+    return {
+      board_id: $("boardId").value || null,
+      length_mm: parseFloat($("boardLen").value) || null,
+      width_mm: parseFloat($("boardWidth").value) || null,
+      saw_word: word,
+      saw_word_bin: word.toString(2).padStart(16, "0"),
+      saw_word_hex: "0x" + word.toString(16).toUpperCase().padStart(4, "0"),
+      saws: SAWS.map(s => ({ label: s.label, actual_mm: s.actual, drop: !!selected[s.label] })),
+      notes: $("notes").value.trim() || null,
+      graded_at: new Date().toISOString(),
+    };
+  }
+
+  function saveBoard() {
+    const rec = currentRecord();
+    if (!rec.board_id) { alert("Give the board an ID first."); return; }
+    const existing = records.findIndex(r => r.board_id === rec.board_id);
+    if (existing >= 0) records[existing] = rec; else records.push(rec);
+    persist(); renderRecords();
+    $("btnSave").textContent = "Saved ✓";
+    setTimeout(() => ($("btnSave").textContent = "Save board"), 900);
+  }
+
+  function renderRecords() {
+    const el = $("recordList");
+    el.innerHTML = records.length ? "" : "<div>no boards saved yet</div>";
+    records.slice().reverse().forEach(r => {
+      const d = document.createElement("div");
+      d.textContent = r.board_id + "  " + r.saw_word_bin.replace(/(.{4})(?=.)/g, "$1 ") +
+        "  (" + (r.width_mm || "?") + "mm)";
+      el.appendChild(d);
+    });
+  }
+
+  function persist() { try { localStorage.setItem("gradingRecords", JSON.stringify(records)); } catch (e) {} }
+  function loadRecords() {
+    try { records = JSON.parse(localStorage.getItem("gradingRecords") || "[]"); } catch (e) { records = []; }
+    renderRecords();
+  }
+  function clearRecords() {
+    if (!confirm("Clear all saved board records?")) return;
+    records = []; persist(); renderRecords();
+  }
+  function copyJSON() {
+    navigator.clipboard.writeText(JSON.stringify(currentRecord(), null, 2))
+      .then(() => { $("btnCopy").textContent = "Copied ✓"; setTimeout(() => $("btnCopy").textContent = "Copy JSON", 900); });
+  }
+  function downloadAll() {
+    const blob = new Blob([JSON.stringify(records, null, 2)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "grading_" + new Date().toISOString().slice(0, 10) + ".json";
+    a.click();
+  }
+
+  // --- helpers ---
+  function canvasPoint(evt, canvas) {
+    const r = canvas.getBoundingClientRect();
+    return { x: (evt.clientX - r.left) * (canvas.width / r.width),
+             y: (evt.clientY - r.top) * (canvas.height / r.height) };
+  }
+  function getVar(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+
+  init();
+})();
+</script>
+</body>
+</html>

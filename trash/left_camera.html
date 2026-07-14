@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Left Camera - Origin Side</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #000;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            overflow: hidden;
+        }
+        .container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 15px 20px;
+            background: #1a1a1a;
+            border-bottom: 2px solid #333;
+            flex-shrink: 0;
+        }
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .status {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+        #stream {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #000;
+        }
+        .info {
+            padding: 10px 20px;
+            background: #1a1a1a;
+            border-top: 2px solid #333;
+            font-size: 12px;
+            line-height: 1.5;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 id="title">🎥 Left Camera (Origin Side)</h1>
+            <div class="status">Live stream • 1920×1080 @ 30fps</div>
+        </div>
+        <img id="stream" src="" alt="camera stream">
+        <div class="info" id="info">
+            <strong>Camera:</strong> 169.254.9.172 | <strong>Resolution:</strong> 1920×1080 | <strong>FPS:</strong> 30 | <strong>Codec:</strong> H.264
+        </div>
+    </div>
+
+    <script>
+        const PI_IP = '192.168.2.11';
+        const API_PORT = '8000';
+        const streamEl = document.getElementById('stream');
+        let frameCount = 0;
+
+        const params = new URLSearchParams(location.search);
+        const CAM_SIDE = params.get('camera') === 'right' ? 'right' : 'left';
+        if (CAM_SIDE === 'right') {
+            document.title = 'Right Camera - Fishtail Side';
+            document.getElementById('title').textContent = '🎥 Right Camera (Fishtail Side)';
+            document.getElementById('info').innerHTML =
+                '<strong>Camera:</strong> 169.254.9.152 | <strong>Resolution:</strong> 1920×1080 | <strong>FPS:</strong> 30 | <strong>Codec:</strong> H.264';
+        }
+
+        async function updateStream() {
+            try {
+                const response = await fetch(`/capture`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        camera: CAM_SIDE,
+                        board_id: 'live_' + CAM_SIDE
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    frameCount++;
+                    streamEl.src = `${data.image_url}?t=${Date.now()}`;
+                } else {
+                    console.error('Stream error:', response.status);
+                }
+            } catch (err) {
+                console.error('Connection error:', err);
+            }
+        }
+
+        // Update every 500ms for ~2 fps preview
+        setInterval(updateStream, 500);
+        updateStream(); // Start immediately
+    </script>
+</body>
+</html>

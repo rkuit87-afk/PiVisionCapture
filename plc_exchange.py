@@ -1,23 +1,29 @@
 """
 plc_exchange.py — snap7 data exchange with the S7-1200 (G2) over a shared DB.
 
-DB layout (see PLC_DB_LAYOUT.md for the TIA Portal side). The DB must have
-"Optimized block access" DISABLED and the CPU must permit PUT/GET.
+DB layout verified 2026-07-12 against the LIVE project "Trimmer.G2.VissionAdded"
+via TIA Openness export (openness/exports/2026-07-12_153302/db_layouts.json)
+and proven by read-size probing of the running CPU. DB1 "DB_Vission",
+Standard (non-optimized) layout, 24 bytes. S7 word-alignment puts every
+field 2 bytes later than the old hand-packed layout assumed — do NOT revert.
 
-To avoid read-modify-write races, ownership is split by byte:
-  Bytes 0-1  : written ONLY by the PLC
-    0.0  bTrigger      Bool  PLC sets when board is in position, resets after
-                             it has consumed the result
-  Bytes 2-15 : written ONLY by the Pi
-    2.0  bAck          Bool  Pi saw the trigger, capture in progress
-    2.1  bResultValid  Bool  measurement finished, results below are valid
-    2.2  bError        Bool  measurement failed, see iErrorCode
-    4.0  wSawWord      Word  bit i = drop saw i (see saw position table)
-    6.0  iLengthMM     Int   usable length in mm (fishtail/tear-out excluded)
-    8.0  iWidthMM      Int   board width in mm
-   10.0  iBoardCount   Int   increments with every result
-   12.0  iErrorCode    Int   0=ok 1=no board 2=no frame 3=measure fail 4=no product
-   14.0  iHeartbeat    Int   increments ~1/s while the Pi app is alive
+Ownership split (no read-modify-write races):
+  PLC-owned:  bytes 0-3 and 20-23
+    0.0  bTrigger         Bool  board in position -> host captures
+    2    iBoardWidth      Int   optional upstream width hint
+    20   wCompareWord     Int   actual profile applied, latched at saw-down
+    22.0 bSawDownCompare  Bool  saw-done pulse: compare wCompareWord now
+  Host-owned: bytes 4-19
+    4.0  bAck             Bool  trigger seen, capture in progress
+    4.1  bResultValid     Bool  results below are valid
+    4.2  bError           Bool  measurement failed, see iErrorCode
+    6    wSawWord         Word  bit i = drop saw i (see saw position table)
+    8    iLengthMM        Int   usable length in mm
+    10   iWidthMM         Int   board width in mm
+    12   iBoardCount      Int   increments with every result
+    14   iErrorCode       Int   0=ok 1=no board 2=no frame 3=measure fail 4=no product
+    16   iHeartbeat       Int   increments ~1/s while the host app is alive
+    18   iFeedSpeedCmd    Int   commanded feed speed (0-100%)
 """
 
 import logging
@@ -29,23 +35,29 @@ import snap7
 
 logger = logging.getLogger(__name__)
 
-DB_SIZE = 16
+DB_SIZE = 24
 
-# Offsets
+# Offsets — verified against Openness export 2026-07-12, do not hand-edit
 OFF_PLC_CTRL = 0      # byte: PLC-owned control bits
+OFF_PLC_WIDTH = 2     # Int: PLC-owned upstream width
 BIT_TRIGGER = 0x01    # 0.0
 
-OFF_PI_STATUS = 2     # byte: Pi-owned status bits
-BIT_ACK = 0x01        # 2.0
-BIT_RESULT_VALID = 0x02  # 2.1
-BIT_ERROR = 0x04      # 2.2
+OFF_PI_STATUS = 4     # byte: host-owned status bits
+BIT_ACK = 0x01        # 4.0
+BIT_RESULT_VALID = 0x02  # 4.1
+BIT_ERROR = 0x04      # 4.2
 
-OFF_SAW_WORD = 4
-OFF_LENGTH = 6
-OFF_WIDTH = 8
-OFF_COUNT = 10
-OFF_ERRCODE = 12
-OFF_HEARTBEAT = 14
+OFF_SAW_WORD = 6
+OFF_LENGTH = 8
+OFF_WIDTH = 10
+OFF_COUNT = 12
+OFF_ERRCODE = 14
+OFF_HEARTBEAT = 16
+OFF_FEED_SPEED = 18
+OFF_COMPARE_WORD = 20   # PLC-owned: actual applied profile (latched at saw-down)
+OFF_SAWDOWN_CMP = 22    # PLC-owned: saw-done compare pulse
+BIT_SAWDOWN_CMP = 0x01  # 22.0
+HOST_AREA_END = 20      # host owns bytes [OFF_PI_STATUS, HOST_AREA_END)
 
 
 class PlcExchange:
@@ -115,6 +127,21 @@ class PlcExchange:
         data = self._read(OFF_PLC_CTRL, 1)
         return bool(data[0] & BIT_TRIGGER)
 
+    def read_board_width(self) -> int:
+        """Reads the optional board width provided by the PLC (Int at byte 2)."""
+        data = self._read(OFF_PLC_WIDTH, 2)
+        return struct.unpack_from(">h", data, 0)[0]
+
+    def read_compare_word(self) -> int:
+        """Actual applied saw profile, latched by the PLC at saw-down."""
+        data = self._read(OFF_COMPARE_WORD, 2)
+        return struct.unpack_from(">h", data, 0)[0]
+
+    def read_saw_done_compare(self) -> bool:
+        """PLC saw-done pulse: when True, read_compare_word() is fresh."""
+        data = self._read(OFF_SAWDOWN_CMP, 1)
+        return bool(data[0] & BIT_SAWDOWN_CMP)
+
     def write_status(self, ack: bool = False, result_valid: bool = False,
                      error: bool = False) -> None:
         bits = (BIT_ACK if ack else 0) | \
@@ -125,20 +152,27 @@ class PlcExchange:
     def write_results(self, saw_word: int, length_mm: int, width_mm: int,
                       board_count: int, error_code: int) -> None:
         """Write the result block (data first — caller sets bResultValid after)."""
+        base = OFF_SAW_WORD
         payload = bytearray(10)
-        struct.pack_into(">H", payload, OFF_SAW_WORD - 4, saw_word & 0xFFFF)
-        struct.pack_into(">h", payload, OFF_LENGTH - 4, _clamp_int(length_mm))
-        struct.pack_into(">h", payload, OFF_WIDTH - 4, _clamp_int(width_mm))
-        struct.pack_into(">h", payload, OFF_COUNT - 4, _clamp_int(board_count))
-        struct.pack_into(">h", payload, OFF_ERRCODE - 4, _clamp_int(error_code))
-        self._write(4, payload)
+        struct.pack_into(">H", payload, OFF_SAW_WORD - base, saw_word & 0xFFFF)
+        struct.pack_into(">h", payload, OFF_LENGTH - base, _clamp_int(length_mm))
+        struct.pack_into(">h", payload, OFF_WIDTH - base, _clamp_int(width_mm))
+        struct.pack_into(">h", payload, OFF_COUNT - base, _clamp_int(board_count))
+        struct.pack_into(">h", payload, OFF_ERRCODE - base, _clamp_int(error_code))
+        self._write(base, payload)
 
     def write_heartbeat(self, value: int) -> None:
         self._write(OFF_HEARTBEAT, bytearray(struct.pack(">h", value % 32000)))
 
+    def write_feed_speed(self, speed_percent: int) -> None:
+        """Write the commanded feed speed percentage."""
+        clamped_speed = max(0, min(100, int(speed_percent)))
+        self._write(OFF_FEED_SPEED, bytearray(struct.pack(">h", clamped_speed)))
+
     def clear_pi_area(self) -> None:
-        """Zero everything the Pi owns — call once at startup."""
-        self._write(OFF_PI_STATUS, bytearray(DB_SIZE - OFF_PI_STATUS))
+        """Zero everything the host owns (bytes 4-19) — call once at startup.
+        MUST NOT touch bytes 20+ (wCompareWord / bSawDownCompare are PLC-owned)."""
+        self._write(OFF_PI_STATUS, bytearray(HOST_AREA_END - OFF_PI_STATUS))
 
     def disconnect(self) -> None:
         with self._lock:
@@ -183,6 +217,12 @@ class SimulatedPlc:
         logger.info("[SIM-PLC] results saw_word=0x%04X length=%d mm width=%d mm "
                     "count=%d err=%d", saw_word, length_mm, width_mm,
                     board_count, error_code)
+
+    def read_board_width(self) -> int:
+        return 150 # Simulate a 150mm wide board
+
+    def write_feed_speed(self, speed_percent: int) -> None:
+        logger.info("[SIM-PLC] feed_speed=%d%%", speed_percent)
 
     def write_heartbeat(self, value: int) -> None:
         pass

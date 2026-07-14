@@ -1,0 +1,106 @@
+# shadow_capture.yaml — configuration for shadow_capture_app.py
+#
+# SHADOW MODE: the app only READS the PLC. It never writes any DB, output,
+# or marker. The operator keeps full control; we record what they decide and
+# what we WOULD have decided, matched per board by the saw-done pulse.
+#
+# DB layout source of truth: openness/exports/2026-07-12_153302/db_layouts.json
+# (Openness export of Trimmer.G2.VissionAdded, sizes verified against the
+# live CPU by read-size probing on 2026-07-12).
+
+plc:
+  ip: "192.168.3.151"
+  rack: 0
+  slot: 1
+  tcp_port: 102            # tests point this at a local snap7 server
+  poll_interval_s: 0.02
+  reconnect_delay_s: 3.0
+  read_io: true            # also read %IB4 (PE_VissionTrigger) and %QB0-1 (saw outputs)
+
+trigger:                   # board-in-position -> we capture + predict
+  source: "bTrigger"       # DB1.0.0 is the PLC's board-window event. The POC
+                           # selects timestamped frames relative to its rising
+                           # edge; no PLC values are written.
+  min_interval_s: 2.0      # debounce successive triggers
+
+frame_alignment:
+  # RTSP streams remain connected and retain this much pre-roll history. On a
+  # bTrigger rising edge, each camera independently selects the decoded frame
+  # nearest its configured offset. Tune offsets from the saved event data.
+  #
+  # 0.75s confirmed live 2026-07-13 via capture_trigger_window.py: buffered both
+  # RTSP feeds continuously across the bTrigger rising->falling window (board
+  # never actually stops; bTrigger just marks the "would-be-stop" pulse) and
+  # sampled the closest-timestamp L/R pair at rise_ts + delay. Walked the delay
+  # 0 -> 0.2 -> 0.5 -> 0.8s, comparing captured frames against the operator's
+  # reference board position each step; 0.8s was confirmed correct position on
+  # both cameras but showed a slight shadow on the RIGHT camera, so trimmed
+  # back 50ms to 0.75s. This five-board validation moves back to 0.78s to
+  # re-check the presentation position. L/R sync stayed within ~1-6ms at every delay tested
+  # since both cameras target the same instant.
+  history_s: 5.0
+  left_offset_s: 0.78
+  right_offset_s: 0.78
+  max_skew_s: 0.75         # reject a frame farther than this from its target
+  # When DB1.iTriggerDelay is present, it overrides both offsets per
+  # trigger. The operator sets it in TIA as milliseconds; zero/unavailable
+  # keeps the YAML fallback above. The shadow app only reads this value.
+  delay_from_db1:
+    enabled: true
+    min_ms: 1
+    max_ms: 4500
+
+saw_done:                  # board unloaded at the saws -> compare buffers
+  source: "bSawDownCompare"  # "bSawDownCompare" (DB1 22.0) or "SawDone" (DB4 38.0)
+  min_interval_s: 1.0
+
+buffer:
+  max_depth: 8             # warn when our prediction FIFO grows past this
+                           # (means saw-done pulses are being missed)
+
+comparison:
+  # POC mode: the local shadow FIFO is driven only by DB1.bTrigger (append)
+  # and DB1.bSawDownCompare (pop). No PLC internal candidate/commit signal is
+  # required for ordered comparison.
+  capture_only: true
+  commit_source: "disabled"
+  commit_min_interval_s: 0.15
+
+# Observation-only width probe.  The line is 1 m from the fence, well clear
+# of the origin end, so fishtails cannot affect the result.  It records raw
+# pixels in boards.csv; it does not alter a word, buffer, PLC bit, or output.
+# A known 76 mm and 114 mm board are required before setting the optional
+# under_100_cutoff_px and using the result as an exception candidate.
+width_probe:
+  enabled: true
+  reference_mm_from_fence: 1000
+  # Interpolated from the current post-camera-move review calibration's
+  # trusted LEFT 0.6 m and 3.0 m landmarks.
+  reference_x_left: 1352
+  y_range_left: [446, 586]
+  scan_threshold: 125
+  sample_offsets_px: [-10, -8, -6, -4, -2, 0, 2, 4, 6, 8, 10]
+  min_run_px: 8
+  max_run_px: 130
+  under_100_cutoff_px: null
+
+stop_position:
+  scan_threshold: 125      # bright-run threshold for stop-position detection;
+                           # LOWER than width_scan_threshold because the RIGHT
+                           # view is darker (verified 2026-07-12: 150 misses
+                           # the board there, 125-130 finds it on both sides)
+
+session:
+  boards: 100              # stop after this many completed comparisons
+  out_root: "D:/Shadow App Data/shadow_sessions"
+
+# Board stop-position optimization: every board's resting position is
+# compared against the calibration board's CURRENT position (these frames,
+# captured 2026-07-12 after the camera move).
+stop_reference:
+  left_image: "D:/board_captures/calib_recheck_2026-07-12/LEFT_manual_snapshot2.jpg"
+  right_image: "D:/board_captures/calib_recheck_2026-07-12/RIGHT_manual_snapshot2.jpg"
+
+# Cameras + measurement calibration (incl. saw_lines) come from the main
+# vision config so there is exactly one calibration to maintain.
+vision_config: "vision_host.yaml"

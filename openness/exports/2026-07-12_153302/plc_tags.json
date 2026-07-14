@@ -1,0 +1,478 @@
+﻿[
+    {
+        "table":  "/Default tag table",
+        "name":  "B_Manip4.2",
+        "datatype":  "Bool",
+        "address":  "%I0.7",
+        "comment":  "MANIPULATOR QUALITY 2"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "B_Manip4.8",
+        "datatype":  "Bool",
+        "address":  "%I1.0",
+        "comment":  "MANIPULATOR QUALITY 1"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "B_Manip3.6",
+        "datatype":  "Bool",
+        "address":  "%I0.6",
+        "comment":  "MANIPULATOR LENGTH 1200"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "B_Manip0.6",
+        "datatype":  "Bool",
+        "address":  "%I0.4",
+        "comment":  "MANIPULATOR LENGTH 300"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "B_Manip0.3",
+        "datatype":  "Bool",
+        "address":  "%I0.3",
+        "comment":  "MANIPULATOR LENGTH 600"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "B_Manip3.0",
+        "datatype":  "Bool",
+        "address":  "%I0.5",
+        "comment":  "MANIPULATOR LENGTH 900"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "B_Sigulator",
+        "datatype":  "Bool",
+        "address":  "%I2.4",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "L4800",
+        "datatype":  "Bool",
+        "address":  "%I2.0",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "L5400",
+        "datatype":  "Bool",
+        "address":  "%I2.1",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "L6000",
+        "datatype":  "Bool",
+        "address":  "%I2.2",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "L6600",
+        "datatype":  "Bool",
+        "address":  "%I2.3",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "B_Stop",
+        "datatype":  "Bool",
+        "address":  "%I0.0",
+        "comment":  "PUSH BUTTON START"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "B_TempStop",
+        "datatype":  "Bool",
+        "address":  "%I0.2",
+        "comment":  "PUSH BUTTON STOP"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "B_Man5.4",
+        "datatype":  "Bool",
+        "address":  "%I1.1",
+        "comment":  "MANIPULATOR QUALITY 3"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "B_Manip6.0",
+        "datatype":  "Bool",
+        "address":  "%I1.2",
+        "comment":  "MANIPULATOR QUALITY 4"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "S_PR_Counter",
+        "datatype":  "Bool",
+        "address":  "%I1.3",
+        "comment":  "MATERIAL IN ONE PIECE FEEDER"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "L_OriginSensor",
+        "datatype":  "Bool",
+        "address":  "%I1.4",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "L3000",
+        "datatype":  "Bool",
+        "address":  "%I1.5",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "L3600",
+        "datatype":  "Bool",
+        "address":  "%I1.6",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "L4200",
+        "datatype":  "Bool",
+        "address":  "%I1.7",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "B_TempStopIF",
+        "datatype":  "Bool",
+        "address":  "%I2.5",
+        "comment":  "Stop infeed temporarily"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "sw_InfeedRfb",
+        "datatype":  "Bool",
+        "address":  "%I2.6",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "sw_DogChainRfb",
+        "datatype":  "Bool",
+        "address":  "%I2.7",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "sw_RollersRfb",
+        "datatype":  "Bool",
+        "address":  "%I3.0",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "B_Start",
+        "datatype":  "Bool",
+        "address":  "%I0.1",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "sw_OutfeedRfb",
+        "datatype":  "Bool",
+        "address":  "%I3.1",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "sw_MainMotorRfb",
+        "datatype":  "Bool",
+        "address":  "%I3.2",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "sw_GreenchainTfb",
+        "datatype":  "Bool",
+        "address":  "%I3.3",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "sw_InfeedTfb",
+        "datatype":  "Bool",
+        "address":  "%I3.4",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "sw_DogchainTfb",
+        "datatype":  "Bool",
+        "address":  "%I3.5",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "sw_RollerTfb",
+        "datatype":  "Bool",
+        "address":  "%I3.6",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "sw_OutfeedTfb",
+        "datatype":  "Bool",
+        "address":  "%I3.7",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "sw_MainMotorTfb",
+        "datatype":  "Bool",
+        "address":  "%I4.0",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "B_ChpperStart/Stop",
+        "datatype":  "Bool",
+        "address":  "%I4.1",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "L_ThickMeas",
+        "datatype":  "Word",
+        "address":  "%IW64",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "Saw4.8",
+        "datatype":  "Bool",
+        "address":  "%Q1.0",
+        "comment":  "ProfeileSaw"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "Saw5.4",
+        "datatype":  "Bool",
+        "address":  "%Q1.1",
+        "comment":  "ProfeileSaw"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "Saw6.0",
+        "datatype":  "Bool",
+        "address":  "%Q1.2",
+        "comment":  "ProfeileSaw"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "Saw6.6",
+        "datatype":  "Bool",
+        "address":  "%Q1.3",
+        "comment":  "ProfeileSaw"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "Saw0.0",
+        "datatype":  "Bool",
+        "address":  "%Q0.0",
+        "comment":  "Shortrim"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "Saw0.3",
+        "datatype":  "Bool",
+        "address":  "%Q0.1",
+        "comment":  "ProfeileSaw"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "Saw0.6",
+        "datatype":  "Bool",
+        "address":  "%Q0.2",
+        "comment":  "ProfeileSaw"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "Saw3.0",
+        "datatype":  "Bool",
+        "address":  "%Q0.3",
+        "comment":  "ProfeileSaw"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "Saw3.6",
+        "datatype":  "Bool",
+        "address":  "%Q0.4",
+        "comment":  "ProfeileSaw"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "Saw4.2",
+        "datatype":  "Bool",
+        "address":  "%Q0.5",
+        "comment":  "ProfeileSaw"
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "KM3_DogChain",
+        "datatype":  "Bool",
+        "address":  "%Q1.6",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "KM4_Rollers",
+        "datatype":  "Bool",
+        "address":  "%Q1.7",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "KM5_Outfeed",
+        "datatype":  "Bool",
+        "address":  "%Q2.0",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "KM6_MainMotor",
+        "datatype":  "Bool",
+        "address":  "%Q2.1",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "Saw6.6(1)",
+        "datatype":  "Bool",
+        "address":  "%Q1.4",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "KM2_Infeed",
+        "datatype":  "Bool",
+        "address":  "%Q1.5",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "StatusLED",
+        "datatype":  "Bool",
+        "address":  "%Q2.2",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "Sol_Singulator",
+        "datatype":  "Bool",
+        "address":  "%Q2.3",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "System_Byte",
+        "datatype":  "Byte",
+        "address":  "%MB1",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "FirstScan",
+        "datatype":  "Bool",
+        "address":  "%M1.0",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "DiagStatusUpdate",
+        "datatype":  "Bool",
+        "address":  "%M1.1",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "AlwaysTRUE",
+        "datatype":  "Bool",
+        "address":  "%M1.2",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "AlwaysFALSE",
+        "datatype":  "Bool",
+        "address":  "%M1.3",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "Clock_Byte",
+        "datatype":  "Byte",
+        "address":  "%MB0",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "Clock_10Hz",
+        "datatype":  "Bool",
+        "address":  "%M0.0",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "Clock_5Hz",
+        "datatype":  "Bool",
+        "address":  "%M0.1",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "Clock_2.5Hz",
+        "datatype":  "Bool",
+        "address":  "%M0.2",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "Clock_2Hz",
+        "datatype":  "Bool",
+        "address":  "%M0.3",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "Clock_1.25Hz",
+        "datatype":  "Bool",
+        "address":  "%M0.4",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "Clock_1Hz",
+        "datatype":  "Bool",
+        "address":  "%M0.5",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "Clock_0.625Hz",
+        "datatype":  "Bool",
+        "address":  "%M0.6",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "Clock_0.5Hz",
+        "datatype":  "Bool",
+        "address":  "%M0.7",
+        "comment":  ""
+    },
+    {
+        "table":  "/Default tag table",
+        "name":  "PE_VissionTrigger",
+        "datatype":  "Bool",
+        "address":  "%I4.6",
+        "comment":  ""
+    }
+]

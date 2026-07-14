@@ -1,2 +1,4 @@
 pyyaml>=6.0
 flask>=2.0
+python-snap7>=1.3
+# cv2 + numpy come from apt on the Pi (python3-opencv), not pip

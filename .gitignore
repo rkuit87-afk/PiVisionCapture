@@ -30,9 +30,14 @@ env/
 *.log
 config.yaml
 !config.example.yaml
+vision_host.yaml
 .env
 .env.local
 captures/
 *.pyc
 .claude/
 test_review/
+
+# Large captured/runtime data — not source, stays local only
+shadow_sessions/
+sandbox/grading_tool/reviewed_boards/

@@ -1,0 +1,20 @@
+{
+  "L": {
+    "saws": {
+      "0.0": {"px": 888.2520179659682, "estimated": false},
+      "0.3": {"px": 1081.0723316691679, "estimated": false},
+      "0.6": {"px": 1237.6026752999912, "estimated": false},
+      "3.0": {"px": 1884.0486828392902, "estimated": false}
+    }
+  },
+  "R": {
+    "saws": {
+      "3.6": {"px": 26.068719572504428, "estimated": false},
+      "4.2": {"px": 111.60954977874621, "estimated": false},
+      "4.8": {"px": 234.08846575586514, "estimated": false},
+      "5.4": {"px": 447.52817637282544, "estimated": false},
+      "6.0": {"px": 683.2956923223726, "estimated": false},
+      "6.6": {"px": 965.0666260181729, "estimated": true}
+    }
+  }
+}

@@ -1044,3 +1044,313 @@ referenced by their default relative-path argparse args), `MediaRef/`
 (not surveyed, unclassified), and everything under `shadow_sessions/`,
 `captures/`, `sandbox/grading_tool/reviewed_boards/2026-07-09_batch1`
 (still awaiting the operator's keep/discard call from earlier tonight).
+
+## Codex blind grading and fresh 30-board capture (2026-07-14 evening)
+
+### Independent Codex grading completed
+
+- Completed a blind, image-only pass over all 56 rows in
+  `Live Data/review_pipeline_56_boards_2026-07-14`.
+- No PLC/operator word, manager grade, Claude grade, or prior review note was
+  used while assigning the words. The private review used raw LEFT/RIGHT
+  images with neutral calibration guides only.
+- Saved exactly 56 Codex records to
+  `Live Data/review_pipeline_56_boards_2026-07-14/reviews/codex.json` as
+  reviewer `Codex Sol High blind`. Board keys exactly match the 56-row
+  pipeline and all words use only the canonical `0x0001..0x0200` saw bits.
+- Grading rule used: locate the far-side fishtail/tear-out onset, retreat at
+  least 200 mm toward origin, select the longest calibrated saw at or before
+  that safe point, then include every saw through the last one physically
+  reached by the board. No saw beyond the physical far edge was selected.
+- Bit 0 (`0.0` trim) was retained on every record. The under-25 mm exception
+  is a thickness condition that cannot be established reliably from these
+  face-view images; no thin-board exception was invented from apparent image
+  height.
+- Verification passed: 56 records, exact key set, canonical mask range, and
+  all 56 records visible in the Codex/pink comparison stream at
+  `http://127.0.0.1:5065/`.
+
+### Read-only fresh 30-board run completed
+
+- Session:
+  `D:\Shadow App Data\shadow_sessions\2026-07-14_201744_fresh_30_for_20260715_review`.
+- Command intent: `shadow_capture_app.py --session fresh_30_for_20260715_review
+  --boards 30`, capture-only, `bTrigger` enqueue and `bSawDownCompare`
+  dequeue. No PLC writes were performed.
+- Live DB1 delay control was active and read `iTriggerDelay=750 ms` for every
+  matched row. Frame timing over the 30 matched boards was LEFT
+  `+0.698..+0.736 s`, RIGHT `+0.715..+0.753 s`.
+- Final integrity: 30 comparisons, boards 1-30 contiguous, all 30 LEFT/RIGHT
+  raw images and profile images present and non-empty, four distinct applied
+  words, report generated.
+- Important anomaly: plant throughput produced 113 triggers before the 30th
+  downstream saw-done comparison. The session therefore finalized with 83
+  explicit `pending_at_exit` records and 83 extra raw image pairs. They were
+  not assigned operator words and were not silently folded into the 30-row
+  review dataset. `boards.csv` contains exactly the 30 matched FIFO rows;
+  `events.jsonl` contains 113 trigger, 30 comparison, and 83 pending events.
+- The recorder warns above FIFO depth 8. Although this run preserved strict
+  oldest-first pairing, tomorrow's review should treat the large trigger to
+  saw delay as a correlation-risk finding. Before another target-by-comparison
+  run, add a trigger admission limit or split capture count from comparison
+  count so a request for 30 boards does not retain 113 image pairs.
+- Existing stop-reference files remain absent; this did not block raw
+  capture-only images but stop-position diagnostics remain unavailable.
+
+### Comparative 56-board review loaded (2026-07-15)
+
+- The comparison app is running at `http://127.0.0.1:5065/` on the existing
+  `review_pipeline_56_boards_2026-07-14` session. It has been opened in the
+  desktop browser and returned HTTP 200.
+- The review view now compares the available independent decisions together:
+  operator/PLC (red, 56 boards), Codex (pink, 56), Claude (orange, 55), and
+  manager (blue, 56). The fresh 30-board capture is deliberately excluded.
+- Claude has no record for board 53. The app intentionally shows this as a
+  blank/missing Claude decision; no substitute word was created. This is an
+  initial comparison set, so review the data that exists rather than forcing
+  missing grades.
+
+### Edge evidence study ready for tomorrow (2026-07-15)
+
+- Dedicated local study app: `http://127.0.0.1:5066/`. It is a separate
+  `shadow_review_app.py --edge-study` instance, so the normal comparative
+  review remains available at port 5065 and no PLC/camera connection is used.
+- The focused set is exactly ten documented cases from the operator truth
+  notes, ordered with board 67 first (the best stated fish-tail example), then
+  11, 17, 19, 26, 28, 31, 38, 47, and 64. Definition:
+  `Live Data/review_pipeline_56_boards_2026-07-14/annotations/edge_study_10_boards.json`.
+- Each board shows a neutral LEFT/RIGHT raw pair with muted calibration lines
+  only: no PLC word or comparison overlay is drawn on the image. Click points
+  to trace `usable edge`, `fish tail`, `tear-out`, `wane`, `lighting limit`,
+  or `machine occlusion`; repeated points of the same type create a dashed
+  trace. Severity 1-4 uses a light-to-dark palette within each evidence colour
+  and also changes marker size; side, pixel position, reviewer, and
+  observations are saved independently of every grading stream.
+- Real annotations save to
+  `Live Data/review_pipeline_56_boards_2026-07-14/annotations/edge_study_annotations.json`.
+  The server endpoint, all ten distinct raw pair images, and reload behavior
+  were tested. The temporary endpoint-test annotation was removed, leaving
+  board 67 clean for the first operator trace.
+- Important validation fix: boards 11 and 31 have matching source-board
+  numbers from different capture sessions. Edge-study images are now named
+  with both study board and source board, so they cannot collide or receive
+  each other's annotations.
+
+### Review of Claude grading changes (2026-07-15)
+
+- Reviewed the expanded `shadow_review_app.py`. The edge-study page loads with
+  10 boards and the new `board_outline`/`max_usable_line` controls are present;
+  the normal app remains read-only with respect to PLC/cameras. Python compile
+  and Flask smoke tests passed.
+- The red/yellow/green severity layer is useful as an exploratory visual, not
+  yet as a grading algorithm. It classifies dark pixels as red and warm pixels
+  as green inside a brightness mask (`severity_bands`); shadows, occlusion,
+  overexposure, wood species, and LED changes can produce the same signals.
+  It must not generate saw words or be treated as ground truth until compared
+  against the hand-marked regions.
+- Current shape rendering groups every same-kind point on one camera into one
+  closed polygon. Multiple disconnected fish-tail/tear-out regions can
+  therefore be joined into a false shape. Add a trace/group identifier or a
+  `New Trace` control before using these masks for training.
+- The annotation endpoint currently rejects more than 40 points per board;
+  the smoke test confirmed HTTP 400 at 41. This is likely too restrictive for
+  meticulous outlines and should be raised or made per-trace before the full
+  ten-board annotation pass.
+- Severity overlays are cached by filename and generated for every row while
+  loading. If thresholds, calibration, or lighting settings change, old cached
+  overlays can remain visually stale. Add a version/config hash or generate
+  them on demand before relying on comparative results.
+- No implementation changes were made during this review. Recommended next
+  step: preserve the hand annotations, add trace grouping and a larger point
+  budget, then evaluate the heuristic overlay against those annotations.
+
+### Fresh aligned 30-board capture ready for blind grading (2026-07-15)
+
+- New read-only capture session:
+  `D:\Shadow App Data\shadow_sessions\2026-07-15_113126_fresh_aligned_30_20260715_113125`.
+- Capture used `bTrigger` rising enqueue, `bSawDownCompare` dequeue, live
+  `DB1.iTriggerDelay=750 ms`, and the confirmed `0.780 s` camera offsets. No
+  PLC writes were performed.
+- Final integrity: 30 matched rows, 31 triggers, 31 LEFT/RIGHT raw pairs, and
+  30 profile images. Three later FIFO/unmatched events are excluded from the
+  grading set. Frame timing was LEFT `+0.711..+0.739 s` and RIGHT
+  `+0.720..+0.751 s`.
+- Fresh blind grading view: `http://127.0.0.1:5067/`. It is a separate
+  `shadow_review_app.py --edge-study` instance with 30 neutral raw pairs. The
+  operator/applied word, old comparison streams, and result columns are
+  removed from both the visible table and the browser payload.
+- Fresh edge-study configuration is stored in the session's
+  `annotations/edge_study_10_boards.json` for compatibility with the existing
+  app option; it intentionally contains all 30 fresh board ids. Grade these
+  images independently before importing any words for comparison.
+
+### Camera reconnect recheck and harsh-light sample (2026-07-15)
+
+- After the camera network reconnect, a monitored read-only 30-board recheck
+  completed successfully at:
+  `D:\Shadow App Data\shadow_sessions\2026-07-15_145154_fresh_recheck_30_20260715_1453`.
+- Final result: 30 matched capture rows, 32 triggers, and no PLC writes. The
+  selected frame offsets were LEFT `+0.709..0.741 s` and RIGHT
+  `+0.721..0.755 s`, with DB1 `iTriggerDelay=750 ms`.
+- A separate one-board sample was captured after the lighting condition was
+  changed, at:
+  `D:\Shadow App Data\shadow_sessions\2026-07-15_145613_harsh_lights_down_1_20260715`.
+  It captured one matched pair with LEFT `+0.718 s` and RIGHT `+0.728 s`.
+- Both sessions used `bTrigger` rising enqueue and `bSawDownCompare` dequeue
+  in `capture_only` shadow mode. The earlier failed detached attempt saved 19
+  partial pairs at `...144843_fresh_recheck_30_20260715_1450`; treat that as
+  incomplete and do not combine it with the completed run.
+
+### Dimmed harsh-light batch (2026-07-15)
+
+- After the harsh lighting was dimmed, the recorder waited for live triggers
+  and captured 20 matched read-only board pairs at:
+  `D:\Shadow App Data\shadow_sessions\2026-07-15_145723_harsh_lights_dim_20_20260715`.
+- Final result: 20 compared capture rows, 21 triggers, and no PLC writes. The
+  selected frame offsets ranged approximately LEFT `+0.716..0.741 s` and
+  RIGHT `+0.720..0.755 s`.
+- This batch is separate from the normal-light recheck and the one-board harsh-
+  light sample. Review it as the dimmed-light condition only.
+- Blind review is available at `http://127.0.0.1:5068/`. The session now has a
+  20-board edge-study index under `annotations/edge_study_10_boards.json`;
+  operator/applied words are intentionally not used for the grading view.
+
+### Active review switched back to normal-light 30-board run (2026-07-15)
+
+- The dimmed/harsh-light 20-board session was removed from active review and
+  moved reversibly to:
+  `D:\Shadow App Data\junk\2026-07-15_145723_harsh_lights_dim_20_20260715`.
+- The blind review server on `http://127.0.0.1:5068/` now loads the preceding
+  30-board recheck:
+  `D:\Shadow App Data\shadow_sessions\2026-07-15_145154_fresh_recheck_30_20260715_1453`.
+- All 30 board records were verified in the active review payload. The images
+  remain capture evidence only; lighting/colour mismatch is documented and no
+  grading or PLC behavior was changed.
+
+### Shadow timing reference adjusted for common board position (2026-07-15)
+
+- For the next shadow capture, `shadow_capture.yaml` now uses the common
+  application timing `left_offset_s=0.78` and `right_offset_s=0.78`.
+- `frame_alignment.delay_from_db1.enabled` is temporarily `false`, so the
+  live `DB1.iTriggerDelay=750 ms` no longer overrides this shadow-only test.
+- No PLC value was written or changed. This is a single global timing offset;
+  no independent per-board leading-edge alignment was added.
+
+### 780 ms alignment test and new 20-board batch (2026-07-15)
+
+- A five-board read-only alignment test at the global `780 ms` timing showed
+  the common board presentation staying consistent across the saved pairs:
+  `D:\Shadow App Data\shadow_sessions\2026-07-15_152005_alignment_test_5_780ms_20260715`.
+- The following 20-board read-only batch completed with 20 matched rows and
+  no PLC writes:
+  `D:\Shadow App Data\shadow_sessions\2026-07-15_152102_aligned_780ms_20_20260715`.
+- All captured frames used `delay=780 ms` from `shadow_capture.yaml`; the live
+  DB1 delay was deliberately ignored for this shadow-only test.
+- Blind review is now loaded at `http://127.0.0.1:5068/` with all 20 boards
+  from this 780 ms session and no operator/applied-word grading context.
+
+### Supplier camera/lens/lighting sample pack (2026-07-15)
+
+- Created `Supplier Sample Pack 2026-07-15/` in the project folder. It contains
+  ten raw LEFT/RIGHT pairs from the 780 ms run, one comparison pair from the
+  preceding run, a technical README, and `Supplier email draft.txt`.
+- The draft asks for recommendations on industrial cameras, lenses, working
+  distance, field of view, lighting, polarisation/diffusion, and calibration.
+  It contains no camera credentials, PLC addresses, or control details.
+
+### Vision Upgrade To-Do: third camera, controlled lighting and algorithms
+
+Goal: produce a stable, visible usable-board boundary first, then detect
+wane/fish-tail/tear-out, then derive a traceable saw-word recommendation. Do
+not train a model to output the PLC word directly as the first step.
+
+#### Field setup: before fitting the third camera
+
+- [ ] Measure and record each existing camera's distance to the board, height,
+  angle, field width, and physical distance from `bTrigger`.
+- [ ] Decide whether the third camera can be a **geometry-reference view**:
+  near perpendicular to the board plane, seeing the full grading band and the
+  far-side edge, with meaningful overlap with both existing views.
+- [ ] Keep hold-down chains, guide rails and machine structure outside its
+  primary region of interest wherever physically possible.
+- [ ] Use a stable mounting bracket; document the final camera positions with
+  photos and measured dimensions so calibration can be repeated after service.
+
+#### Lighting enclosure: validate before collecting training data
+
+- [ ] Build a shrouded inspection zone with a matte black, non-reflective
+  background wherever a silhouette/background separation is needed.
+- [ ] Provide one diffuse, even visible-light mode for stable colour and
+  usable-wood segmentation.
+- [ ] Provide a separate low-angle/raking-light mode for tear-out, texture and
+  fish-tail contours. Preserve each mode as a separately labelled channel or
+  capture, not as an uncontrolled mixture.
+- [ ] If physically possible, trial a backlight behind the board path for a
+  high-contrast outer-board silhouette.
+- [ ] Test for LED flicker/banding at the actual exposure time. Use DC-driven
+  LEDs or a synchronised strobe controller if banding appears.
+- [ ] Trial cross-polarisation only if glare remains after diffuser/angle work.
+
+#### Camera and timing setup
+
+- [ ] Prefer global-shutter machine-vision cameras for the eventual upgrade.
+  GigE Vision is the cleanest network integration; USB3 global-shutter cameras
+  require an edge PC or USB-over-Cat6 extender rather than a normal USB-to-
+  Ethernet adapter.
+- [ ] Lock focus, aperture, exposure, gain, white balance and gamma once the
+  inspection enclosure is commissioned. Do not leave automatic controls on.
+- [ ] Trigger all camera views from the same event and retain per-frame
+  timestamps. Record exact trigger-to-frame offsets for every capture.
+- [ ] Keep one common global presentation offset. Do not introduce per-board
+  leading-edge alignment unless a future tracking design explicitly requires it.
+- [ ] Keep `shadow_capture_app.py` read-only and do not start write-capable
+  `vision_host_app.py` during this data-collection phase.
+
+#### Calibration and data capture
+
+- [ ] Run a marked calibration board through the final inspection position:
+  origin, 1 m, 3 m, 6.6 m and other known saw marks.
+- [ ] Capture a colour chart plus matte white/grey reference in each final
+  camera under the final light modes; make a per-camera colour correction or
+  normalisation profile rather than comparing raw camera colours directly.
+- [ ] Re-fit lens distortion and image-to-machine coordinates after every
+  camera movement. Keep the physical tape measurements as the saw datum.
+- [ ] Capture 30-50 boards with the final settings locked; save raw L/R/third
+  frames, timestamps, camera settings and lighting mode. Do not save only
+  rendered overlays.
+- [ ] Attach the operator/PLC word only after blind visual annotation so it
+  cannot bias grading.
+
+#### Annotation and model sequence
+
+- [ ] Use the edge-study app to label: `board_outline`, `usable_edge`, `wane`,
+  `fishtail`, `tear_out`, `machine_occlusion`, and `lighting_limit`.
+- [ ] Add trace grouping and raise the current 40-point annotation cap before
+  detailed outline work; disconnected defects must not be merged into one
+  polygon.
+- [ ] Phase 1 algorithm: deterministic board geometry. Use controlled-light
+  background separation, gradient/edge detection, connected components and a
+  robust line/spline fit to produce the outer-board mask.
+- [ ] Phase 2 algorithm: train pixel segmentation for `usable` versus
+  `non-usable`, with confidence per pixel. A U-Net/DeepLab-style model is more
+  appropriate than boxes because cut positions depend on the exact boundary.
+- [ ] Phase 3 algorithm: extend the segmentation classes to wane, fish-tail
+  and tear-out; retain uncertain/occluded regions as an explicit outcome.
+- [ ] Evaluate anomaly detection only as a supplement for unexpected defects,
+  not as the source of the board boundary.
+- [ ] Future higher-confidence wane upgrade: trial line laser/structured-light
+  profiling. It adds surface shape information where colour/texture is
+  ambiguous.
+
+#### Cut decision and acceptance tests
+
+- [ ] Build the cut optimiser separately from image segmentation: sample the
+  usable-mask confidence at each calibrated saw line, apply the 200 mm safety
+  rule, then map the selected lines to the established PLC bitmask.
+- [ ] Log the selected lines, rejected lines, usable confidence and reason for
+  every proposed word. The overlay must make the decision inspectable.
+- [ ] Score edge-position error, defect-mask precision/recall, false cuts,
+  missed cuts and operator-agreement separately. Never treat word agreement
+  alone as proof that the vision layer is correct.
+- [ ] Keep recommendations shadow-only until the geometry and defect metrics
+  are stable across lighting modes, board types and multiple production runs.

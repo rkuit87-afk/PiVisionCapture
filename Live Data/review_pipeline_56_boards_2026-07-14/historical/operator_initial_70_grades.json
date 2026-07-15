@@ -1,0 +1,450 @@
+{
+  "1": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T08:10:55",
+    "applied_word": "0x0101"
+  },
+  "2": {
+    "graded_word": "0x00F9",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "We can and should improve this the operator chose correctly in this instance but we are actuating saws that doe't hit the board so the reamining red line is safer but I think we should save the actutaion there is no need to bring down a saw if it is not going to cut, cylinders and valves should last longer.",
+    "graded_at": "2026-07-14T08:13:12",
+    "applied_word": "0x03F8"
+  },
+  "3": {
+    "graded_word": "0x0201",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "This was a grave mistake perfect board destroyed. can clearly see operator error here.",
+    "graded_at": "2026-07-14T08:14:15",
+    "applied_word": "0x03F8"
+  },
+  "4": {
+    "graded_word": "0x0301",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T08:42:20",
+    "applied_word": "0x0201"
+  },
+  "7": {
+    "graded_word": "0x0381",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T08:44:43",
+    "applied_word": "0x0201"
+  },
+  "8": {
+    "graded_word": "0x0201",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T08:45:10",
+    "applied_word": "0x0201"
+  },
+  "9": {
+    "graded_word": "0x0201",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T08:45:18",
+    "applied_word": "0x0201"
+  },
+  "10": {
+    "graded_word": "0x0181",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "Here again ther is no need to actuate 6.6 though if close we should no borederline case only when clearly missing.",
+    "graded_at": "2026-07-14T08:46:08",
+    "applied_word": "0x0381"
+  },
+  "11": {
+    "graded_word": "0x0181",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "Missed fishtail in this case it was close we could potentially also bring down 4.8 but but we neecd atleaset 200mm of fish tail to stick out for oprimization ahead in line.",
+    "graded_at": "2026-07-14T08:47:31",
+    "applied_word": "0x0101"
+  },
+  "14": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T08:48:54",
+    "applied_word": "0x0101"
+  },
+  "15": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T08:49:36",
+    "applied_word": "0x0101"
+  },
+  "16": {
+    "graded_word": "0x0181",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T08:49:53",
+    "applied_word": "0x0201"
+  },
+  "17": {
+    "graded_word": "0x01C1",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "Trim fish tail with 200mm left",
+    "graded_at": "2026-07-14T08:53:18",
+    "applied_word": "0x0081"
+  },
+  "18": {
+    "graded_word": "0x0041",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "over trimmed waste.",
+    "graded_at": "2026-07-14T08:53:49",
+    "applied_word": "0x03E1"
+  },
+  "19": {
+    "graded_word": "0x0181",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "tear out close to the 0.0 is acceptable wane.",
+    "graded_at": "2026-07-14T08:54:46",
+    "applied_word": "0x0101"
+  },
+  "20": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "We shold investigate this one, I don't undersatnd how the photo eye could have missed unless a buffer was incorectly shifted.",
+    "graded_at": "2026-07-14T08:55:41",
+    "applied_word": "0x0201"
+  },
+  "21": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T08:55:53",
+    "applied_word": "0x0101"
+  },
+  "22": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T08:56:05",
+    "applied_word": "0x0101"
+  },
+  "23": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T08:56:14",
+    "applied_word": "0x0101"
+  },
+  "25": {
+    "graded_word": "0x01C1",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "Over trimmed",
+    "graded_at": "2026-07-14T08:57:20",
+    "applied_word": "0x03E1"
+  },
+  "26": {
+    "graded_word": "0x0301",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "Correct actuation from pohot elctric the operator missed the fish tail here.",
+    "graded_at": "2026-07-14T08:57:55",
+    "applied_word": "0x0101"
+  },
+  "27": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "Missed far edge",
+    "graded_at": "2026-07-14T08:58:32",
+    "applied_word": "0x0201"
+  },
+  "28": {
+    "graded_word": "0x0041",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "Missed completely alo large fish tail left but we need the extra 200mm for optim9ization",
+    "graded_at": "2026-07-14T11:52:37",
+    "applied_word": "0x0101"
+  },
+  "29": {
+    "graded_word": "0x0181",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "Over timeed completely",
+    "graded_at": "2026-07-14T09:03:57",
+    "applied_word": "0x03F9"
+  },
+  "30": {
+    "graded_word": "0x0201",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "compete waste",
+    "graded_at": "2026-07-14T09:04:13",
+    "applied_word": "0x03F9"
+  },
+  "31": {
+    "graded_word": "0x0181",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "Left a large fish tail but like I sadi we need atleast 200mm.",
+    "graded_at": "2026-07-14T09:05:33",
+    "applied_word": "0x0101"
+  },
+  "32": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T09:06:34",
+    "applied_word": "0x0101"
+  },
+  "33": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T09:06:37",
+    "applied_word": "0x0101"
+  },
+  "34": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T09:06:44",
+    "applied_word": "0x0101"
+  },
+  "35": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T09:06:47",
+    "applied_word": "0x0101"
+  },
+  "36": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "missed wane here is still accpetable only trim to size",
+    "graded_at": "2026-07-14T09:07:34",
+    "applied_word": "0x0000"
+  },
+  "38": {
+    "graded_word": "0x0002",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "Here is the first example on fish tail on origen side, though it seems this board was just fed the wrong way round, but I think good esxample to show the atleast 200mm of fishtail on the orgin side.",
+    "graded_at": "2026-07-14T11:54:21",
+    "applied_word": "0x0000"
+  },
+  "39": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T11:54:37",
+    "applied_word": "0x0101"
+  },
+  "40": {
+    "graded_word": "0x0081",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "This is a grey area but still should go to optimization cuts",
+    "graded_at": "2026-07-14T11:55:18",
+    "applied_word": "0x0101"
+  },
+  "41": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "Missed completely.",
+    "graded_at": "2026-07-14T11:55:48",
+    "applied_word": "0x0000"
+  },
+  "42": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T11:56:05",
+    "applied_word": "0x0101"
+  },
+  "43": {
+    "graded_word": "0x0201",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "Missed",
+    "graded_at": "2026-07-14T11:56:20",
+    "applied_word": "0x0000"
+  },
+  "45": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T11:57:12",
+    "applied_word": "0x0101"
+  },
+  "46": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T11:57:20",
+    "applied_word": "0x0101"
+  },
+  "47": {
+    "graded_word": "0x0381",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "Tear out just before 5.4 is severe enoug to warran down saw.",
+    "graded_at": "2026-07-14T11:58:06",
+    "applied_word": "0x03E1"
+  },
+  "48": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T11:58:52",
+    "applied_word": "0x0101"
+  },
+  "49": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T11:59:04",
+    "applied_word": "0x0101"
+  },
+  "50": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "missed completely",
+    "graded_at": "2026-07-14T11:59:24",
+    "applied_word": "0x0000"
+  },
+  "51": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "Missed",
+    "graded_at": "2026-07-14T11:59:38",
+    "applied_word": "0x0000"
+  },
+  "52": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "Wasted destroyed board",
+    "graded_at": "2026-07-14T12:00:03",
+    "applied_word": "0x03E0"
+  },
+  "53": {
+    "graded_word": "0x0000",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "Stop feed!!!!!! When two boards are detected the feed MUST stop and operator needs to fix first.",
+    "graded_at": "2026-07-14T12:00:45",
+    "applied_word": "0x0101"
+  },
+  "61": {
+    "graded_word": "0x03E1",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "Here we need to discuss this is a great example.",
+    "graded_at": "2026-07-14T12:40:33",
+    "applied_word": "0x03E1"
+  },
+  "62": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "Missed",
+    "graded_at": "2026-07-14T12:40:55",
+    "applied_word": "0x0000"
+  },
+  "63": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T12:41:02",
+    "applied_word": "0x0101"
+  },
+  "64": {
+    "graded_word": "0x0007",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "200mm left in fish tail atleast",
+    "graded_at": "2026-07-14T12:41:27",
+    "applied_word": "0x0000"
+  },
+  "65": {
+    "graded_word": "0x0041",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "Missed",
+    "graded_at": "2026-07-14T12:41:41",
+    "applied_word": "0x0101"
+  },
+  "66": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T12:41:48",
+    "applied_word": "0x0101"
+  },
+  "67": {
+    "graded_word": "0x0043",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "4.2 bOundary case but in this one we caution rather thn waste product. This is actually the best example so far regarding fish tails on both sides.",
+    "graded_at": "2026-07-14T12:43:37",
+    "applied_word": "0x0000"
+  },
+  "68": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "",
+    "graded_at": "2026-07-14T12:43:45",
+    "applied_word": "0x0101"
+  },
+  "69": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "Missed",
+    "graded_at": "2026-07-14T12:44:00",
+    "applied_word": "0x0000"
+  },
+  "70": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "",
+    "notes": "STIO!!!! Two board we wer lucky here for a change, we need to stop when two boards are detected.",
+    "graded_at": "2026-07-14T12:44:41",
+    "applied_word": "0x0101"
+  }
+}

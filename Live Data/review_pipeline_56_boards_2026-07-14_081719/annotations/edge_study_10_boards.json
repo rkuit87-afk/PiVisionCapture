@@ -1,0 +1,16 @@
+{
+  "title": "Fish-tail and tear-out edge study",
+  "instructions": "Mark the visual evidence, not the desired saw. Use usable_edge for the last sound material, defect_onset for fish-tail, wane, or tear-out, and lighting_limit when the image cannot support a reliable call.",
+  "boards": [
+    {"board": 67, "focus": "Best documented example: fish tails on both sides; 4.2 boundary case."},
+    {"board": 11, "focus": "Close fish tail; retain at least 200 mm for downstream optimisation."},
+    {"board": 17, "focus": "Fish tail selected for trimming while retaining 200 mm."},
+    {"board": 19, "focus": "Tear-out near trim side; compare acceptable wane against a true defect."},
+    {"board": 26, "focus": "Fish tail missed by the operator/PLC decision."},
+    {"board": 28, "focus": "Large fish tail; 200 mm downstream allowance is important."},
+    {"board": 31, "focus": "Large remaining fish tail; test whether its onset is visually detectable."},
+    {"board": 38, "focus": "Origin-side fish tail and reversed-feed example."},
+    {"board": 47, "focus": "Severe tear-out just before the 5.4 saw position."},
+    {"board": 64, "focus": "Fish-tail allowance example with the 200 mm margin."}
+  ]
+}

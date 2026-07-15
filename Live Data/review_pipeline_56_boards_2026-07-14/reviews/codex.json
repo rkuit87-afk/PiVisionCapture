@@ -1,0 +1,404 @@
+{
+  "1": {
+    "graded_word": "0x01E1",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-15T01:47:32",
+    "applied_word": "0x0101"
+  },
+  "2": {
+    "graded_word": "0x03F1",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Visible far-side wane/tear-out set the retreat point; >=200 mm safety retreat; selected 3.6 through last physically reached saw 5.4; normal-board trim retained.",
+    "graded_at": "2026-07-15T01:48:13",
+    "applied_word": "0x03F8"
+  },
+  "3": {
+    "graded_word": "0x03F8",
+    "mode": "confirm",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.6 through last physically reached saw 6.6; normal-board trim retained.",
+    "graded_at": "2026-07-15T01:48:21",
+    "applied_word": "0x03F8"
+  },
+  "4": {
+    "graded_word": "0x0381",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Visible far-side wane/tear-out set the retreat point; >=200 mm safety retreat; selected 4.8 through last physically reached saw 6.6; normal-board trim retained.",
+    "graded_at": "2026-07-15T01:48:59",
+    "applied_word": "0x0201"
+  },
+  "7": {
+    "graded_word": "0x0381",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Visible far-side wane/tear-out set the retreat point; >=200 mm safety retreat; selected 4.8 through last physically reached saw 6.6; normal-board trim retained.",
+    "graded_at": "2026-07-15T01:49:31",
+    "applied_word": "0x0201"
+  },
+  "8": {
+    "graded_word": "0x0201",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.6 through last physically reached saw 6.6; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "9": {
+    "graded_word": "0x0201",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.6 through last physically reached saw 6.6; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "10": {
+    "graded_word": "0x0201",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-15T01:50:24",
+    "applied_word": "0x0381"
+  },
+  "11": {
+    "graded_word": "0x0181",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Visible far-side wane/tear-out set the retreat point; >=200 mm safety retreat; selected 4.2 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-15T01:50:45",
+    "applied_word": "0x0101"
+  },
+  "14": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-15T01:50:54",
+    "applied_word": "0x0101"
+  },
+  "15": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-15T01:51:01",
+    "applied_word": "0x0101"
+  },
+  "16": {
+    "graded_word": "0x01C1",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Visible far-side wane/tear-out set the retreat point; >=200 mm safety retreat; selected 4.8 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-15T01:51:13",
+    "applied_word": "0x0201"
+  },
+  "17": {
+    "graded_word": "0x00F1",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Visible far-side wane/tear-out set the retreat point; >=200 mm safety retreat; selected 3.6 through last physically reached saw 5.4; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "18": {
+    "graded_word": "0x0061",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 4.2 through last physically reached saw 4.8; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "19": {
+    "graded_word": "0x01F1",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Visible far-side wane/tear-out set the retreat point; >=200 mm safety retreat; selected 3.6 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "20": {
+    "graded_word": "0x0181",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 5.4 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "21": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "22": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "23": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "25": {
+    "graded_word": "0x01C1",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Visible far-side wane/tear-out set the retreat point; >=200 mm safety retreat; selected 4.8 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "26": {
+    "graded_word": "0x03C1",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Visible far-side wane/tear-out set the retreat point; >=200 mm safety retreat; selected 4.8 through last physically reached saw 6.6; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "27": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "28": {
+    "graded_word": "0x0071",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Visible far-side wane/tear-out set the retreat point; >=200 mm safety retreat; selected 3.6 through last physically reached saw 4.8; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "29": {
+    "graded_word": "0x01F1",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Visible far-side wane/tear-out set the retreat point; >=200 mm safety retreat; selected 3.6 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "30": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "31": {
+    "graded_word": "0x01F1",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Visible far-side wane/tear-out set the retreat point; >=200 mm safety retreat; selected 3.6 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "32": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "33": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "34": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "35": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "36": {
+    "graded_word": "0x01F1",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Visible far-side wane/tear-out set the retreat point; >=200 mm safety retreat; selected 3.6 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "38": {
+    "graded_word": "0x0041",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 4.8 through last physically reached saw 4.8; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "39": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "40": {
+    "graded_word": "0x0081",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 5.4 through last physically reached saw 5.4; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "41": {
+    "graded_word": "0x0181",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Visible far-side wane/tear-out set the retreat point; >=200 mm safety retreat; selected 5.4 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "42": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "43": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "45": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "46": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "47": {
+    "graded_word": "0x01E1",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Visible far-side wane/tear-out set the retreat point; >=200 mm safety retreat; selected 4.2 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "48": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "49": {
+    "graded_word": "0x01E1",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Visible far-side wane/tear-out set the retreat point; >=200 mm safety retreat; selected 4.2 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "50": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "51": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "52": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "53": {
+    "graded_word": "0x01F9",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Visible far-side wane/tear-out set the retreat point; >=200 mm safety retreat; selected 3.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "61": {
+    "graded_word": "0x01F9",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Visible far-side wane/tear-out set the retreat point; >=200 mm safety retreat; selected 3.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "62": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "63": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "64": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "65": {
+    "graded_word": "0x0041",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 4.8 through last physically reached saw 4.8; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "66": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "67": {
+    "graded_word": "0x0061",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Visible far-side wane/tear-out set the retreat point; >=200 mm safety retreat; selected 4.2 through last physically reached saw 4.8; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "68": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "69": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  },
+  "70": {
+    "graded_word": "0x0101",
+    "mode": "supersede",
+    "reviewer": "Codex Sol High blind",
+    "notes": "Far edge set the retreat point; >=200 mm safety retreat; selected 6.0 through last physically reached saw 6.0; normal-board trim retained.",
+    "graded_at": "2026-07-14T20:05:48"
+  }
+}

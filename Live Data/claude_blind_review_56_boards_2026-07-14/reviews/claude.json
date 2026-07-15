@@ -1,0 +1,442 @@
+{
+  "1": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight, uniform width, no defect visible; medium confidence",
+    "graded_at": "2026-07-14T19:54:44",
+    "applied_word": "0x0101"
+  },
+  "2": {
+    "graded_word": "0x03F8",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight overall, no obvious defect; heavy multi-saw word likely manual/cumulative mode, not contradicted by visible shape; medium confidence",
+    "graded_at": "2026-07-14T19:54:44",
+    "applied_word": "0x03F8"
+  },
+  "3": {
+    "graded_word": "0x03F8",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight overall, no obvious defect; heavy multi-saw word likely manual/cumulative mode, not contradicted by visible shape; medium confidence",
+    "graded_at": "2026-07-14T19:54:44",
+    "applied_word": "0x03F8"
+  },
+  "4": {
+    "graded_word": "0x0201",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight, uniform width, staining near tip not a defect; medium confidence",
+    "graded_at": "2026-07-14T19:54:45",
+    "applied_word": "0x0201"
+  },
+  "7": {
+    "graded_word": "0x0201",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight, uniform width, rust staining not a defect; medium confidence",
+    "graded_at": "2026-07-14T19:54:45",
+    "applied_word": "0x0201"
+  },
+  "8": {
+    "graded_word": "0x0201",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight, uniform width, no defect visible; medium confidence",
+    "graded_at": "2026-07-14T19:54:45",
+    "applied_word": "0x0201"
+  },
+  "9": {
+    "graded_word": "0x0201",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight, uniform width, rust staining not a defect; medium confidence",
+    "graded_at": "2026-07-14T19:54:45",
+    "applied_word": "0x0201"
+  },
+  "10": {
+    "graded_word": "0x0381",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight, uniform width, no defect visible; medium confidence",
+    "graded_at": "2026-07-14T19:54:45",
+    "applied_word": "0x0381"
+  },
+  "11": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight, uniform width, no defect visible; medium confidence",
+    "graded_at": "2026-07-14T19:54:45",
+    "applied_word": "0x0101"
+  },
+  "14": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight, uniform width, no defect visible; medium confidence",
+    "graded_at": "2026-07-14T19:54:45",
+    "applied_word": "0x0101"
+  },
+  "15": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight, uniform width, no defect visible; medium confidence",
+    "graded_at": "2026-07-14T19:54:45",
+    "applied_word": "0x0101"
+  },
+  "16": {
+    "graded_word": "0x0201",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight, uniform width, rust staining not a defect; medium confidence",
+    "graded_at": "2026-07-14T19:54:45",
+    "applied_word": "0x0201"
+  },
+  "17": {
+    "graded_word": "0x0081",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight, no obvious tear-out or width change through visible region; medium confidence",
+    "graded_at": "2026-07-14T19:54:45",
+    "applied_word": "0x0081"
+  },
+  "18": {
+    "graded_word": "0x03E1",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight overall, no obvious defect; heavy multi-saw word likely manual/cumulative mode, not contradicted by visible shape; medium confidence",
+    "graded_at": "2026-07-14T19:54:45",
+    "applied_word": "0x03E1"
+  },
+  "19": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight, uniform width, staining not a defect; medium confidence",
+    "graded_at": "2026-07-14T19:54:45",
+    "applied_word": "0x0101"
+  },
+  "20": {
+    "graded_word": "0x0201",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight, uniform width, no defect visible; medium confidence",
+    "graded_at": "2026-07-14T19:54:46",
+    "applied_word": "0x0201"
+  },
+  "21": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "kept portion (origin to 5.4) straight/uniform; tapered offcut tail beyond cut point is expected waste, not a defect in the kept length; medium confidence",
+    "graded_at": "2026-07-14T19:54:46",
+    "applied_word": "0x0101"
+  },
+  "22": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "kept portion straight/uniform, no defect before cut point; medium confidence",
+    "graded_at": "2026-07-14T19:54:46",
+    "applied_word": "0x0101"
+  },
+  "23": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "kept portion straight/uniform, no defect before cut point; medium confidence",
+    "graded_at": "2026-07-14T19:54:46",
+    "applied_word": "0x0101"
+  },
+  "25": {
+    "graded_word": "0x03E1",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight overall, no obvious defect; heavy multi-saw word likely manual/cumulative mode, not contradicted by visible shape; medium confidence",
+    "graded_at": "2026-07-14T19:54:46",
+    "applied_word": "0x03E1"
+  },
+  "26": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "kept portion straight/uniform, no defect before cut point; medium confidence",
+    "graded_at": "2026-07-14T19:54:46",
+    "applied_word": "0x0101"
+  },
+  "27": {
+    "graded_word": "0x0201",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "kept portion straight, no tear-out/width narrowing; medium confidence",
+    "graded_at": "2026-07-14T19:54:46",
+    "applied_word": "0x0201"
+  },
+  "28": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "kept portion straight, no tear-out/width narrowing; medium confidence",
+    "graded_at": "2026-07-14T19:54:46",
+    "applied_word": "0x0101"
+  },
+  "29": {
+    "graded_word": "0x03F9",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight overall, no obvious defect; heavy multi-saw word likely manual/cumulative mode, not contradicted by visible shape; medium confidence",
+    "graded_at": "2026-07-14T19:54:46",
+    "applied_word": "0x03F9"
+  },
+  "30": {
+    "graded_word": "0x03F9",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "kept portion straight/uniform, no defect before cut point; medium confidence",
+    "graded_at": "2026-07-14T19:54:46",
+    "applied_word": "0x03F9"
+  },
+  "31": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "kept portion straight/uniform, staining not a defect; medium confidence",
+    "graded_at": "2026-07-14T19:54:46",
+    "applied_word": "0x0101"
+  },
+  "32": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "kept portion straight/uniform, no defect before cut point; medium confidence",
+    "graded_at": "2026-07-14T19:54:46",
+    "applied_word": "0x0101"
+  },
+  "33": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "kept portion straight/uniform, no defect before cut point; medium confidence",
+    "graded_at": "2026-07-14T19:54:46",
+    "applied_word": "0x0101"
+  },
+  "34": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "kept portion straight/uniform, no defect before cut point; medium confidence",
+    "graded_at": "2026-07-14T19:54:46",
+    "applied_word": "0x0101"
+  },
+  "35": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "kept portion straight/uniform, no defect before cut point; medium confidence",
+    "graded_at": "2026-07-14T19:54:46",
+    "applied_word": "0x0101"
+  },
+  "36": {
+    "graded_word": "0x0000",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "no defect visible in exposed board region; applied word is no-cut; medium confidence",
+    "graded_at": "2026-07-14T19:54:47",
+    "applied_word": "0x0000"
+  },
+  "38": {
+    "graded_word": "0x0000",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "no defect visible in exposed board region; applied word is no-cut; medium confidence",
+    "graded_at": "2026-07-14T19:54:47",
+    "applied_word": "0x0000"
+  },
+  "39": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "kept portion straight/uniform, no defect before cut point; medium confidence",
+    "graded_at": "2026-07-14T19:54:47",
+    "applied_word": "0x0101"
+  },
+  "40": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "kept portion straight/uniform, staining not a defect; medium confidence",
+    "graded_at": "2026-07-14T19:54:47",
+    "applied_word": "0x0101"
+  },
+  "41": {
+    "graded_word": "0x0000",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "no defect visible in exposed board region; applied word is no-cut; medium confidence",
+    "graded_at": "2026-07-14T19:54:47",
+    "applied_word": "0x0000"
+  },
+  "42": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "kept portion straight/uniform, staining not a defect; medium confidence",
+    "graded_at": "2026-07-14T19:54:47",
+    "applied_word": "0x0101"
+  },
+  "43": {
+    "graded_word": "0x0000",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "no defect visible in exposed board region; applied word is no-cut; medium confidence",
+    "graded_at": "2026-07-14T19:54:47",
+    "applied_word": "0x0000"
+  },
+  "45": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "kept portion straight/uniform, no defect before cut point; medium confidence",
+    "graded_at": "2026-07-14T19:54:47",
+    "applied_word": "0x0101"
+  },
+  "46": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "kept portion straight/uniform, no defect before cut point; medium confidence",
+    "graded_at": "2026-07-14T19:54:47",
+    "applied_word": "0x0101"
+  },
+  "47": {
+    "graded_word": "0x03E1",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight overall, no obvious defect; heavy multi-saw word likely manual/cumulative mode, not contradicted by visible shape; medium confidence",
+    "graded_at": "2026-07-14T19:54:47",
+    "applied_word": "0x03E1"
+  },
+  "48": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "kept portion straight/uniform, no defect before cut point; medium confidence",
+    "graded_at": "2026-07-14T19:54:47",
+    "applied_word": "0x0101"
+  },
+  "49": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "kept portion straight/uniform, staining not a defect; medium confidence",
+    "graded_at": "2026-07-14T19:54:47",
+    "applied_word": "0x0101"
+  },
+  "50": {
+    "graded_word": "0x0000",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "no defect visible in exposed board region; applied word is no-cut; medium confidence",
+    "graded_at": "2026-07-14T19:54:47",
+    "applied_word": "0x0000"
+  },
+  "51": {
+    "graded_word": "0x0000",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "no defect visible in exposed board region; applied word is no-cut; medium confidence",
+    "graded_at": "2026-07-14T19:54:47",
+    "applied_word": "0x0000"
+  },
+  "52": {
+    "graded_word": "0x03E0",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "kept portion (origin to 3.6) straight/uniform, no defect; medium confidence",
+    "graded_at": "2026-07-14T19:54:48",
+    "applied_word": "0x03E0"
+  },
+  "61": {
+    "graded_word": "0x03E1",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight overall despite heavier surface staining; heavy multi-saw word likely manual/cumulative mode, not contradicted by visible shape; medium confidence",
+    "graded_at": "2026-07-14T19:54:48",
+    "applied_word": "0x03E1"
+  },
+  "62": {
+    "graded_word": "0x0000",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "no defect visible in exposed board region; applied word is no-cut; medium confidence",
+    "graded_at": "2026-07-14T19:54:48",
+    "applied_word": "0x0000"
+  },
+  "63": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board silhouette straight/uniform width through visible region; light rust-color staining near trim end, not a defect; medium confidence",
+    "graded_at": "2026-07-14T19:54:48",
+    "applied_word": "0x0101"
+  },
+  "64": {
+    "graded_word": "0x0000",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "no defect visible in exposed board region; applied word is no-cut; medium confidence",
+    "graded_at": "2026-07-14T19:54:48",
+    "applied_word": "0x0000"
+  },
+  "65": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight, uniform width, no tear-out visible; medium confidence",
+    "graded_at": "2026-07-14T19:54:48",
+    "applied_word": "0x0101"
+  },
+  "66": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight, uniform width, no tear-out visible; medium confidence",
+    "graded_at": "2026-07-14T19:54:48",
+    "applied_word": "0x0101"
+  },
+  "67": {
+    "graded_word": "0x0000",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "no defect visible in exposed board region; applied word is no-cut; medium confidence",
+    "graded_at": "2026-07-14T19:54:48",
+    "applied_word": "0x0000"
+  },
+  "68": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "board straight, uniform width, minor staining near trim end not a defect; medium confidence",
+    "graded_at": "2026-07-14T19:54:48",
+    "applied_word": "0x0101"
+  },
+  "69": {
+    "graded_word": "0x0000",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "no defect visible in exposed board region; applied word is no-cut; medium confidence",
+    "graded_at": "2026-07-14T19:54:48",
+    "applied_word": "0x0000"
+  },
+  "70": {
+    "graded_word": "0x0101",
+    "mode": "confirm",
+    "reviewer": "Claude",
+    "notes": "clean fresh lumber, square trim end, no defect visible; high confidence",
+    "graded_at": "2026-07-14T19:54:48",
+    "applied_word": "0x0101"
+  }
+}

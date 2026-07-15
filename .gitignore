@@ -41,3 +41,8 @@ test_review/
 # Large captured/runtime data — not source, stays local only
 shadow_sessions/
 sandbox/grading_tool/reviewed_boards/
+
+# Generated edge-study overlay images (reproducible from raw frames on D:)
+Live Data/**/edge_study_images/
+SampleImages/
+camera_check_*/

@@ -1,0 +1,16 @@
+{
+  "kind": "combined_shadow_review",
+  "created": "2026-07-14",
+  "sources": {
+    "live20": {
+      "label": "2026-07-13 live 20-board run",
+      "session": "D:\\Shadow App Data\\shadow_sessions\\2026-07-13_190219_live_20_board_2026-07-13_190218",
+      "frames": "D:\\Shadow App Data\\shadow_sessions\\2026-07-13_190219_live_20_board_2026-07-13_190218\\frames"
+    },
+    "aligned50": {
+      "label": "2026-07-13 aligned 50-board run",
+      "session": "D:\\Shadow App Data\\shadow_sessions\\2026-07-13_194317_aligned_50_board_2026-07-13_194317",
+      "frames": "D:\\Shadow App Data\\shadow_sessions\\2026-07-13_194317_aligned_50_board_2026-07-13_194317\\frames"
+    }
+  }
+}

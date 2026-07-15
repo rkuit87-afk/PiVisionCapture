@@ -46,7 +46,9 @@ frame_alignment:
   # trigger. The operator sets it in TIA as milliseconds; zero/unavailable
   # keeps the YAML fallback above. The shadow app only reads this value.
   delay_from_db1:
-    enabled: true
+    # Shadow-only alignment test: use the application reference timing below
+    # instead of the live PLC value while the common board position is tuned.
+    enabled: false
     min_ms: 1
     max_ms: 4500
 

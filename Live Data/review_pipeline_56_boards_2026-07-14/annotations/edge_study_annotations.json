@@ -1,0 +1,737 @@
+{
+  "67": {
+    "reviewer": "",
+    "notes": "",
+    "marks": [
+      {
+        "kind": "board_outline",
+        "side": "left",
+        "x": 830.4,
+        "y": 577.7,
+        "severity": 4
+      },
+      {
+        "kind": "board_outline",
+        "side": "left",
+        "x": 829.4,
+        "y": 538.7,
+        "severity": 4
+      },
+      {
+        "kind": "board_outline",
+        "side": "left",
+        "x": 845.4,
+        "y": 516.7,
+        "severity": 4
+      },
+      {
+        "kind": "board_outline",
+        "side": "left",
+        "x": 849.4,
+        "y": 489.7,
+        "severity": 4
+      },
+      {
+        "kind": "board_outline",
+        "side": "left",
+        "x": 1411.0,
+        "y": 502.9,
+        "severity": 4
+      },
+      {
+        "kind": "board_outline",
+        "side": "left",
+        "x": 1755.0,
+        "y": 517.9,
+        "severity": 4
+      },
+      {
+        "kind": "board_outline",
+        "side": "left",
+        "x": 1918.5,
+        "y": 528.9,
+        "severity": 4
+      },
+      {
+        "kind": "board_outline",
+        "side": "left",
+        "x": 1917.5,
+        "y": 564.4,
+        "severity": 4
+      },
+      {
+        "kind": "board_outline",
+        "side": "left",
+        "x": 1919.7,
+        "y": 571.4,
+        "severity": 4
+      },
+      {
+        "kind": "board_outline",
+        "side": "right",
+        "x": 6.7,
+        "y": 570.9,
+        "severity": 4
+      },
+      {
+        "kind": "board_outline",
+        "side": "right",
+        "x": 358.7,
+        "y": 542.4,
+        "severity": 4
+      },
+      {
+        "kind": "board_outline",
+        "side": "right",
+        "x": 358.7,
+        "y": 484.4,
+        "severity": 4
+      },
+      {
+        "kind": "board_outline",
+        "side": "right",
+        "x": 1.7,
+        "y": 535.4,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 133.7,
+        "y": 518.4,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 262.2,
+        "y": 498.4,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 247.7,
+        "y": 509.4,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 239.7,
+        "y": 521.4,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 244.2,
+        "y": 535.4,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 292.7,
+        "y": 544.9,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 112.7,
+        "y": 558.9,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 151.2,
+        "y": 550.4,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 173.7,
+        "y": 544.9,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 187.2,
+        "y": 534.4,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 164.2,
+        "y": 521.4,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "left",
+        "x": 847.2,
+        "y": 493.3,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "left",
+        "x": 951.7,
+        "y": 491.8,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "left",
+        "x": 926.2,
+        "y": 507.3,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "left",
+        "x": 917.2,
+        "y": 523.8,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "left",
+        "x": 923.7,
+        "y": 536.8,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "left",
+        "x": 955.2,
+        "y": 542.8,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "left",
+        "x": 1006.7,
+        "y": 544.3,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "left",
+        "x": 1057.7,
+        "y": 554.3,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "left",
+        "x": 1195.2,
+        "y": 570.8,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "left",
+        "x": 835.7,
+        "y": 574.8,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "left",
+        "x": 849.2,
+        "y": 495.8,
+        "severity": 4
+      },
+      {
+        "kind": "max_usable_line",
+        "side": "right",
+        "x": 111.2,
+        "y": 495.4,
+        "severity": 4
+      },
+      {
+        "kind": "max_usable_line",
+        "side": "right",
+        "x": 113.7,
+        "y": 588.9,
+        "severity": 4
+      },
+      {
+        "kind": "max_usable_line",
+        "side": "left",
+        "x": 1203.0,
+        "y": 469.4,
+        "severity": 4
+      },
+      {
+        "kind": "max_usable_line",
+        "side": "left",
+        "x": 1204.5,
+        "y": 600.9,
+        "severity": 4
+      }
+    ],
+    "updated_at": "2026-07-15T11:35:53"
+  },
+  "11": {
+    "reviewer": "",
+    "notes": "Please not I tried to trace the usable edge on the high spots, so if a fishtail is in ti's croos sectional area even though it is partially usable the give away is the severity of the wane and fish tai;.",
+    "marks": [
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 333.3,
+        "y": 484.4,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 412.7,
+        "y": 488.4,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 349.3,
+        "y": 531.1,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 890.3,
+        "y": 502.1,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 888.9,
+        "y": 428.1,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 330.8,
+        "y": 482.1,
+        "severity": 4
+      },
+      {
+        "kind": "wane",
+        "side": "right",
+        "x": 314.0,
+        "y": 492.1,
+        "severity": 3
+      },
+      {
+        "kind": "wane",
+        "side": "right",
+        "x": 282.7,
+        "y": 496.1,
+        "severity": 3
+      },
+      {
+        "kind": "wane",
+        "side": "right",
+        "x": 254.0,
+        "y": 497.2,
+        "severity": 1
+      },
+      {
+        "kind": "wane",
+        "side": "right",
+        "x": 214.0,
+        "y": 507.9,
+        "severity": 1
+      },
+      {
+        "kind": "wane",
+        "side": "right",
+        "x": 154.7,
+        "y": 513.9,
+        "severity": 1
+      },
+      {
+        "kind": "wane",
+        "side": "right",
+        "x": 130.0,
+        "y": 521.2,
+        "severity": 1
+      },
+      {
+        "kind": "wane",
+        "side": "left",
+        "x": 1859.3,
+        "y": 524.1,
+        "severity": 1
+      },
+      {
+        "kind": "wane",
+        "side": "left",
+        "x": 1787.3,
+        "y": 520.8,
+        "severity": 1
+      },
+      {
+        "kind": "wane",
+        "side": "left",
+        "x": 1644.7,
+        "y": 510.8,
+        "severity": 1
+      },
+      {
+        "kind": "machine_occlusion",
+        "side": "left",
+        "x": 832.4,
+        "y": 515.5,
+        "severity": 4
+      },
+      {
+        "kind": "machine_occlusion",
+        "side": "left",
+        "x": 845.1,
+        "y": 484.1,
+        "severity": 4
+      },
+      {
+        "kind": "machine_occlusion",
+        "side": "right",
+        "x": 230.0,
+        "y": 488.8,
+        "severity": 4
+      },
+      {
+        "kind": "machine_occlusion",
+        "side": "right",
+        "x": 232.0,
+        "y": 513.5,
+        "severity": 4
+      },
+      {
+        "kind": "machine_occlusion",
+        "side": "right",
+        "x": 423.3,
+        "y": 448.1,
+        "severity": 4
+      },
+      {
+        "kind": "machine_occlusion",
+        "side": "right",
+        "x": 422.0,
+        "y": 480.8,
+        "severity": 4
+      },
+      {
+        "kind": "machine_occlusion",
+        "side": "right",
+        "x": 111.3,
+        "y": 516.1,
+        "severity": 4
+      },
+      {
+        "kind": "machine_occlusion",
+        "side": "right",
+        "x": 28.0,
+        "y": 524.1,
+        "severity": 4
+      },
+      {
+        "kind": "usable_edge",
+        "side": "left",
+        "x": 1918.4,
+        "y": 527.3,
+        "severity": 4
+      },
+      {
+        "kind": "usable_edge",
+        "side": "left",
+        "x": 1916.4,
+        "y": 562.7,
+        "severity": 4
+      },
+      {
+        "kind": "usable_edge",
+        "side": "left",
+        "x": 838.3,
+        "y": 566.9,
+        "severity": 4
+      },
+      {
+        "kind": "usable_edge",
+        "side": "left",
+        "x": 835.6,
+        "y": 532.3,
+        "severity": 4
+      },
+      {
+        "kind": "usable_edge",
+        "side": "left",
+        "x": 854.3,
+        "y": 508.9,
+        "severity": 4
+      },
+      {
+        "kind": "usable_edge",
+        "side": "left",
+        "x": 865.6,
+        "y": 480.9,
+        "severity": 4
+      },
+      {
+        "kind": "usable_edge",
+        "side": "left",
+        "x": 1916.7,
+        "y": 526.9,
+        "severity": 4
+      },
+      {
+        "kind": "wane",
+        "side": "right",
+        "x": 283.3,
+        "y": 543.9,
+        "severity": 2
+      },
+      {
+        "kind": "wane",
+        "side": "right",
+        "x": 333.3,
+        "y": 539.9,
+        "severity": 2
+      },
+      {
+        "kind": "usable_edge",
+        "side": "right",
+        "x": 114.7,
+        "y": 557.2,
+        "severity": 3
+      },
+      {
+        "kind": "usable_edge",
+        "side": "right",
+        "x": 274.7,
+        "y": 543.9,
+        "severity": 3
+      },
+      {
+        "kind": "usable_edge",
+        "side": "right",
+        "x": 304.7,
+        "y": 525.2,
+        "severity": 3
+      },
+      {
+        "kind": "usable_edge",
+        "side": "right",
+        "x": 382.0,
+        "y": 498.5,
+        "severity": 3
+      },
+      {
+        "kind": "usable_edge",
+        "side": "right",
+        "x": 117.3,
+        "y": 528.5,
+        "severity": 3
+      },
+      {
+        "kind": "usable_edge",
+        "side": "right",
+        "x": 116.7,
+        "y": 558.5,
+        "severity": 3
+      }
+    ],
+    "updated_at": "2026-07-15T07:47:58"
+  },
+  "17": {
+    "reviewer": "",
+    "notes": "",
+    "marks": [
+      {
+        "kind": "usable_edge",
+        "side": "left",
+        "x": 834.7,
+        "y": 571.7,
+        "severity": 4
+      },
+      {
+        "kind": "usable_edge",
+        "side": "left",
+        "x": 834.0,
+        "y": 525.7,
+        "severity": 4
+      },
+      {
+        "kind": "usable_edge",
+        "side": "left",
+        "x": 848.0,
+        "y": 515.1,
+        "severity": 4
+      },
+      {
+        "kind": "usable_edge",
+        "side": "left",
+        "x": 1916.8,
+        "y": 534.4,
+        "severity": 4
+      },
+      {
+        "kind": "usable_edge",
+        "side": "left",
+        "x": 1916.8,
+        "y": 560.4,
+        "severity": 4
+      },
+      {
+        "kind": "usable_edge",
+        "side": "left",
+        "x": 836.9,
+        "y": 574.4,
+        "severity": 4
+      },
+      {
+        "kind": "usable_edge",
+        "side": "right",
+        "x": 8.5,
+        "y": 569.1,
+        "severity": 4
+      },
+      {
+        "kind": "usable_edge",
+        "side": "right",
+        "x": 180.5,
+        "y": 547.1,
+        "severity": 4
+      },
+      {
+        "kind": "usable_edge",
+        "side": "right",
+        "x": 177.2,
+        "y": 517.7,
+        "severity": 4
+      },
+      {
+        "kind": "usable_edge",
+        "side": "right",
+        "x": 1.2,
+        "y": 545.1,
+        "severity": 4
+      },
+      {
+        "kind": "usable_edge",
+        "side": "left",
+        "x": 1916.5,
+        "y": 565.1,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 187.2,
+        "y": 547.7,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 213.9,
+        "y": 537.7,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 218.5,
+        "y": 523.1,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 191.9,
+        "y": 513.1,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 709.5,
+        "y": 451.1,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 722.1,
+        "y": 453.7,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 734.8,
+        "y": 461.7,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 706.8,
+        "y": 484.4,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 654.8,
+        "y": 492.4,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 624.1,
+        "y": 500.4,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 583.5,
+        "y": 505.1,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 522.1,
+        "y": 511.7,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 361.6,
+        "y": 526.4,
+        "severity": 4
+      },
+      {
+        "kind": "fishtail",
+        "side": "right",
+        "x": 191.6,
+        "y": 546.4,
+        "severity": 4
+      }
+    ],
+    "updated_at": "2026-07-15T08:10:35"
+  }
+}
